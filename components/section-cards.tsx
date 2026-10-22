@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { useTheme } from "next-themes"
-import { SearchIcon, MoonIcon, SunIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 import { Card } from "@/components/ui/card" 
+import { BranchLogo } from "@/components/branch-logo"
 
 // Mock data for the students
 const MOCK_STUDENTS = [
@@ -11,7 +11,7 @@ const MOCK_STUDENTS = [
   { id: 2, initials: "MR", name: "Mark Reeds", branch: "U.S. Army", isLive: false, score: 78 },
   { id: 3, initials: "AS", name: "Alex Smith", branch: "U.S. Air Force", isLive: true, score: 88 },
   { id: 4, initials: "TC", name: "Tom Cruise", branch: "U.S. Navy", isLive: true, score: 99 },
-  { id: 5, initials: "SJ", name: "Sarah Jones", branch: "Space Force", isLive: false, score: 62 },
+  { id: 5, initials: "SJ", name: "Sarah Jones", branch: "U.S. Air Force", isLive: false, score: 62 },
   { id: 6, initials: "RJ", name: "Rick James", branch: "U.S. Marines", isLive: true, score: 85 },
   { id: 7, initials: "EP", name: "Ellen Page", branch: "U.S. Navy", isLive: false, score: 91 },
 ];
@@ -20,9 +20,6 @@ export function SectionCards() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [activeStudentId, setActiveStudentId] = useState(1)
-  
-  // Use next-themes for global theme control
-  const { theme, setTheme } = useTheme()
 
   // Filter students based on search query
   const filteredStudents = MOCK_STUDENTS.filter(student => 
@@ -51,7 +48,7 @@ export function SectionCards() {
         }`}
       >
         {/* Sidebar Header / Search Toggle */}
-        <div className="flex h-16 shrink-0 items-center border-b border-border/50 px-3">
+        <div className="flex h-20 shrink-0 items-center border-b border-border/50 px-3">
           <button 
             onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
             className="flex size-10 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -130,15 +127,6 @@ export function SectionCards() {
               3rd Class
             </p>
           </div>
-          
-          {/* Light/Dark Mode Toggle */}
-          <button 
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background/50 text-muted-foreground shadow-sm transition-all hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-            title="Toggle Theme"
-          >
-            {theme === "dark" ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
-          </button>
         </header>
 
         {/* Scrollable Content Container */}
@@ -217,9 +205,12 @@ export function SectionCards() {
                   <h2 className="text-5xl font-bold tracking-tight text-foreground whitespace-nowrap pr-4">
                     {activeSubject.name}
                   </h2>
-                  <p className="text-xl font-medium uppercase tracking-widest text-muted-foreground mt-2">
-                    {activeSubject.branch}
-                  </p>
+                  <div className="flex items-center gap-2.5 mt-2">
+                    <BranchLogo branch={activeSubject.branch} className="size-6 text-muted-foreground shrink-0" />
+                    <p className="text-xl font-medium uppercase tracking-widest text-muted-foreground">
+                      {activeSubject.branch}
+                    </p>
+                  </div>
                 </div>
               </div>
               
