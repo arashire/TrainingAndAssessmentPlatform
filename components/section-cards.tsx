@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { useTheme } from "next-themes"
-import { Card } from "@/components/ui/card"
 import { SearchIcon, MoonIcon, SunIcon } from "lucide-react"
+import { Card } from "@/components/ui/card" 
 
 // Mock data for the students
 const MOCK_STUDENTS = [
@@ -120,11 +120,16 @@ export function SectionCards() {
       {/* Main Dashboard Area */}
       <div className="flex flex-1 flex-col overflow-hidden bg-background">
         
-        {/* Sticky Backdrop Blur Header with Theme Toggle */}
+        {/* Sticky Backdrop Blur Header */}
         <header className="sticky top-0 z-10 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-xl transition-colors duration-300">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Task — Start Up Sequence
-          </h1>
+          <div className="flex flex-col justify-center">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              Squadron 231
+            </h1>
+            <p className="text-sm font-medium text-muted-foreground">
+              3rd Class
+            </p>
+          </div>
           
           {/* Light/Dark Mode Toggle */}
           <button 
@@ -136,85 +141,143 @@ export function SectionCards() {
           </button>
         </header>
 
-        {/* Scrollable Metrics Grid */}
-        <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-          <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-            
-            {/* Combined Hero Card: Subject Profile + Overall Score */}
-            <Card className="relative overflow-visible @container/profile dark:bg-card w-fit min-w-[340px] @xl/main:col-span-2">
-              <div className="flex flex-col p-6">
-                
-                {/* Top Row: Live Indicator & Title Hierarchy */}
-                <div className="flex items-center gap-2 mb-6">
-                  {activeSubject.isLive && (
-                    <span className="relative flex size-2.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500"></span>
-                    </span>
-                  )}
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    Student Performance
+        {/* Scrollable Content Container */}
+        <div className="flex-1 overflow-y-auto @container/main">
+          
+          {/* Massive Ghost Hero Section */}
+          <div className="px-8 py-10 lg:px-12 lg:py-14">
+            <div className="flex flex-col">
+              
+              {/* Top Row: Live Indicator & Title Hierarchy */}
+              <div className="flex items-center gap-3 mb-8">
+                {activeSubject.isLive && (
+                  <span className="relative flex size-4">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex size-4 rounded-full bg-emerald-500"></span>
                   </span>
-                </div>
-                
-                {/* Bottom Row: Halo Avatar & Text Stack */}
-                <div className="flex items-center gap-6">
-                  
-                  {/* Halo Avatar Container */}
-                  <div className="relative flex size-24 shrink-0 items-center justify-center">
-                    
-                    {/* SVG Circular Progress Ring */}
-                    <svg className="absolute inset-0 size-full -rotate-90 transform drop-shadow-sm" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="44" fill="none" strokeWidth="6" className="stroke-muted/30" />
-                      <circle
-                        cx="50" cy="50" r="44" fill="none" strokeWidth="6" strokeLinecap="round"
-                        strokeDasharray="276.46"
-                        strokeDashoffset={276.46 - (activeSubject.score / 100) * 276.46}
-                        className={`transition-all duration-1000 ease-out ${
-                          activeSubject.score >= 90 ? "stroke-emerald-500" :
-                          activeSubject.score >= 75 ? "stroke-amber-500" : 
-                          "stroke-rose-500"
-                        }`}
-                      />
-                    </svg>
-
-                    {/* Inner Avatar */}
-                    <div className="relative flex size-16 items-center justify-center overflow-hidden rounded-full bg-muted border border-background shadow-inner">
-                      <span className="text-xl font-semibold text-muted-foreground">
-                        {activeSubject.initials}
-                      </span>
-                    </div>
-
-                    {/* Large Opaque Score Badge (Top Right) */}
-                    <div className={`absolute -right-1 -top-1 flex h-8 min-w-8 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-sm font-black text-white shadow-md ${
-                          activeSubject.score >= 90 ? "bg-emerald-500" :
-                          activeSubject.score >= 75 ? "bg-amber-500" : 
-                          "bg-rose-500"
-                    }`}>
-                      {activeSubject.score}
-                    </div>
-                  </div>
-
-                  {/* Typography Stack */}
-                  <div className="flex flex-col justify-center">
-                    <h2 className="text-2xl font-bold tracking-tight text-foreground whitespace-nowrap pr-4">
-                      {activeSubject.name}
-                    </h2>
-                    <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground mt-0.5">
-                      {activeSubject.branch}
-                    </p>
-                  </div>
-                </div>
-                
+                )}
+                <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                  {activeSubject.isLive ? (
+                    <>
+                      <span className="text-emerald-500">LIVE</span> Student Performance
+                    </>
+                  ) : (
+                    "Student Performance"
+                  )}
+                </span>
               </div>
-            </Card>
+              
+              {/* Bottom Row: 2x Halo Avatar & Text Stack */}
+              <div className="flex items-center gap-10">
+                
+                {/* 2x Halo Avatar Container */}
+                <div className="relative flex size-48 shrink-0 items-center justify-center">
+                  
+                  {/* SVG Circular Progress Ring */}
+                  <svg className="absolute inset-0 size-full -rotate-90 transform drop-shadow-sm" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="44" fill="none" strokeWidth="6" className="stroke-muted/30" />
+                    <circle
+                      cx="50" cy="50" r="44" fill="none" strokeWidth="6" strokeLinecap="round"
+                      strokeDasharray="276.46"
+                      strokeDashoffset={276.46 - (activeSubject.score / 100) * 276.46}
+                      className={`transition-all duration-1000 ease-out ${
+                        activeSubject.score >= 90 ? "stroke-emerald-500" :
+                        activeSubject.score >= 75 ? "stroke-amber-500" : 
+                        "stroke-rose-500"
+                      }`}
+                    />
+                  </svg>
 
-            {/* Placeholder for the next metrics */}
-            <div className="min-h-32 rounded-xl border border-dashed border-border/60 bg-muted/10 flex items-center justify-center text-muted-foreground text-sm">
-              Next Metric Card
+                  {/* 2x Inner Avatar */}
+                  <div className="relative flex size-32 items-center justify-center overflow-hidden rounded-full bg-muted border-2 border-background shadow-inner">
+                    <span className="text-5xl font-semibold text-muted-foreground">
+                      {activeSubject.initials}
+                    </span>
+                  </div>
+
+                  {/* 2x Opaque Score Badge */}
+                  <div className={`absolute right-1 top-1 flex h-14 min-w-14 items-center justify-center rounded-full border-[4px] border-background px-2 text-2xl font-black text-white shadow-lg ${
+                        activeSubject.score >= 90 ? "bg-emerald-500" :
+                        activeSubject.score >= 75 ? "bg-amber-500" : 
+                        "bg-rose-500"
+                  }`}>
+                    {activeSubject.score}
+                  </div>
+                </div>
+
+                {/* 2x Typography Stack */}
+                <div className="flex flex-col justify-center">
+                  <h2 className="text-5xl font-bold tracking-tight text-foreground whitespace-nowrap pr-4">
+                    {activeSubject.name}
+                  </h2>
+                  <p className="text-xl font-medium uppercase tracking-widest text-muted-foreground mt-2">
+                    {activeSubject.branch}
+                  </p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          {/* Full Width Thin Divider */}
+          <hr className="w-full border-t border-border/50" />
+
+          {/* Metrics Grid Section */}
+          <div className="p-8 lg:p-12">
+            
+            {/* Instructor View Badge */}
+            <div className="mb-8 inline-flex items-center rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
+              Instructor View
             </div>
 
+            <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+              
+              {/* Card 1: Current Project (Spans 2 columns) */}
+              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 dark:bg-card">
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground">Current Project</h3>
+                  <p className="text-sm font-medium text-muted-foreground mt-0.5">Start Up Sequence Data</p>
+                </div>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Current project visualizations load here
+                </div>
+              </Card>
+              
+              {/* Card 2: Repair Sequence */}
+              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+                <h3 className="text-lg font-bold tracking-tight text-foreground">Repair Sequence</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Data loads here
+                </div>
+              </Card>
+
+              {/* Card 3: Scenario 1 */}
+              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 1</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Data loads here
+                </div>
+              </Card>
+
+              {/* Card 4: Scenario 2 */}
+              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 2</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Data loads here
+                </div>
+              </Card>
+
+              {/* Card 5: Scenario 3 */}
+              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 3</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Data loads here
+                </div>
+              </Card>
+
+            </div>
           </div>
+
         </div>
       </div>
       
