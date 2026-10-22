@@ -1,25 +1,131 @@
 "use client"
 
 import { useState } from "react"
-import { SearchIcon } from "lucide-react"
+import { SearchIcon, ArrowUpRight, TrendingUp, TrendingDown, MessageSquareText } from "lucide-react"
 import { Card } from "@/components/ui/card" 
 import { BranchLogo } from "@/components/branch-logo"
 
 // Mock data for the students
 const MOCK_STUDENTS = [
-  { id: 1, initials: "JD", name: "Jane Doe", branch: "U.S. Navy", isLive: true, score: 94 },
-  { id: 2, initials: "MR", name: "Mark Reeds", branch: "U.S. Army", isLive: false, score: 78 },
-  { id: 3, initials: "AS", name: "Alex Smith", branch: "U.S. Air Force", isLive: true, score: 88 },
-  { id: 4, initials: "TC", name: "Tom Cruise", branch: "U.S. Navy", isLive: true, score: 99 },
-  { id: 5, initials: "SJ", name: "Sarah Jones", branch: "U.S. Air Force", isLive: false, score: 62 },
-  { id: 6, initials: "RJ", name: "Rick James", branch: "U.S. Marines", isLive: true, score: 85 },
-  { id: 7, initials: "EP", name: "Ellen Page", branch: "U.S. Navy", isLive: false, score: 91 },
+  { 
+    id: 1, 
+    initials: "JD", 
+    name: "Jane Doe", 
+    branch: "U.S. Navy", 
+    isLive: true, 
+    score: 94, 
+    totalProjects: 14, 
+    endedProjects: 8,
+    runningProjects: 4,
+    pendingProjects: 2,
+    projectTrend: "increased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "increased" as const,
+  },
+  { 
+    id: 2, 
+    initials: "MR", 
+    name: "Mark Reeds", 
+    branch: "U.S. Army", 
+    isLive: false, 
+    score: 78, 
+    totalProjects: 8, 
+    endedProjects: 5,
+    runningProjects: 2,
+    pendingProjects: 1,
+    projectTrend: "decreased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "decreased" as const,
+  },
+  { 
+    id: 3, 
+    initials: "AS", 
+    name: "Alex Smith", 
+    branch: "U.S. Air Force", 
+    isLive: true, 
+    score: 88, 
+    totalProjects: 19, 
+    endedProjects: 11,
+    runningProjects: 5,
+    pendingProjects: 3,
+    projectTrend: "increased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "increased" as const,
+    pendingTrend: "decreased" as const,
+  },
+  { 
+    id: 4, 
+    initials: "TC", 
+    name: "Tom Cruise", 
+    branch: "U.S. Navy", 
+    isLive: true, 
+    score: 99, 
+    totalProjects: 26, 
+    endedProjects: 17,
+    runningProjects: 6,
+    pendingProjects: 3,
+    projectTrend: "increased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "increased" as const,
+    pendingTrend: "decreased" as const,
+  },
+  { 
+    id: 5, 
+    initials: "SJ", 
+    name: "Sarah Jones", 
+    branch: "U.S. Air Force", 
+    isLive: false, 
+    score: 62, 
+    totalProjects: 6, 
+    endedProjects: 3,
+    runningProjects: 2,
+    pendingProjects: 1,
+    projectTrend: "decreased" as const,
+    endedTrend: "decreased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "increased" as const,
+  },
+  { 
+    id: 6, 
+    initials: "RJ", 
+    name: "Rick James", 
+    branch: "U.S. Marines", 
+    isLive: true, 
+    score: 85, 
+    totalProjects: 12, 
+    endedProjects: 7,
+    runningProjects: 3,
+    pendingProjects: 2,
+    projectTrend: "increased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "increased" as const,
+  },
+  { 
+    id: 7, 
+    initials: "EP", 
+    name: "Ellen Page", 
+    branch: "U.S. Navy", 
+    isLive: false, 
+    score: 91, 
+    totalProjects: 15, 
+    endedProjects: 9,
+    runningProjects: 4,
+    pendingProjects: 2,
+    projectTrend: "decreased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "decreased" as const,
+  },
 ];
 
 export function SectionCards() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [activeStudentId, setActiveStudentId] = useState(1)
+  const [activeProjectFilter, setActiveProjectFilter] = useState<string | null>(null)
 
   // Filter students based on search query
   const filteredStudents = MOCK_STUDENTS.filter(student => 
@@ -28,6 +134,33 @@ export function SectionCards() {
 
   // Get the currently selected subject's data
   const activeSubject = MOCK_STUDENTS.find(s => s.id === activeStudentId) || MOCK_STUDENTS[0]
+
+  const metricCards = [
+    {
+      id: "total",
+      title: "Total Projects",
+      count: activeSubject.totalProjects,
+      trend: activeSubject.projectTrend,
+    },
+    {
+      id: "ended",
+      title: "Ended Projects",
+      count: activeSubject.endedProjects,
+      trend: activeSubject.endedTrend,
+    },
+    {
+      id: "running",
+      title: "Running Projects",
+      count: activeSubject.runningProjects,
+      trend: activeSubject.runningTrend,
+    },
+    {
+      id: "pending",
+      title: "Pending Projects",
+      count: activeSubject.pendingProjects,
+      trend: activeSubject.pendingTrend,
+    },
+  ]
 
   const handleStudentSelect = (id: number) => {
     setActiveStudentId(id)
@@ -39,7 +172,7 @@ export function SectionCards() {
 
   return (
     // Root container
-    <div className="flex w-full h-[85vh] min-h-[600px] overflow-hidden rounded-xl border border-border/50 bg-background text-foreground shadow-sm font-sans">
+    <div className="flex w-full h-[85vh] min-h-[600px] overflow-hidden rounded-xl border border-border/50 bg-background text-foreground shadow-sm font-sans [transform:translateZ(0)]">
       
       {/* Left Sidebar: Expanding Column */}
       <div 
@@ -117,21 +250,21 @@ export function SectionCards() {
       {/* Main Dashboard Area */}
       <div className="flex flex-1 flex-col overflow-hidden bg-background">
         
-        {/* Sticky Backdrop Blur Header */}
-        <header className="sticky top-0 z-10 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-xl transition-colors duration-300">
-          <div className="flex flex-col justify-center">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              Squadron 231
-            </h1>
-            <p className="text-sm font-medium text-muted-foreground">
-              3rd Class
-            </p>
-          </div>
-        </header>
-
         {/* Scrollable Content Container */}
-        <div className="flex-1 overflow-y-auto @container/main">
+        <div className="flex-1 overflow-y-auto @container/main relative isolate [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]">
           
+          {/* Sticky Backdrop Blur Header */}
+          <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]">
+            <div className="flex flex-col justify-center">
+              <h1 className="text-2xl font-bold tracking-tight text-foreground">
+                Squadron 231
+              </h1>
+              <p className="text-sm font-medium text-muted-foreground">
+                3rd Class
+              </p>
+            </div>
+          </header>
+
           {/* Instructor View Badge */}
           <div className="px-8 pt-8 lg:px-12">
             <div className="inline-flex items-center rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
@@ -162,7 +295,7 @@ export function SectionCards() {
                 </span>
               </div>
               
-              {/* Bottom Row: 2x Halo Avatar & Text Stack */}
+              {/* Main User Card: Halo Avatar & Typography Stack */}
               <div className="flex items-center gap-10">
                 
                 {/* 2x Halo Avatar Container */}
@@ -212,6 +345,72 @@ export function SectionCards() {
                     </p>
                   </div>
                 </div>
+              </div>
+
+              {/* Project Metric Cards: Positioned Underneath Main User Card */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-10">
+                {metricCards.map((card) => {
+                  const isFiltered = activeProjectFilter === card.id
+                  return (
+                    <Card
+                      key={card.id}
+                      className="flex flex-col justify-start p-4 min-h-32 rounded-xl border border-border/50 bg-card/60 backdrop-blur-xs shadow-xs transition-all hover:border-border"
+                    >
+                      {/* Top: Left-justified Title inline with Right-aligned Filter Button */}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                          {card.title}
+                        </span>
+                        <button
+                          onClick={() => setActiveProjectFilter(isFiltered ? null : card.id)}
+                          className={`flex size-8 shrink-0 items-center justify-center rounded-full border border-border/50 transition-all ${
+                            isFiltered
+                              ? "bg-primary text-primary-foreground shadow-sm scale-105"
+                              : "bg-background/80 text-muted-foreground hover:bg-muted hover:text-foreground active:scale-95"
+                          }`}
+                          title={isFiltered ? `Clear ${card.title} filter` : `Filter ${card.title}`}
+                        >
+                          <ArrowUpRight className="size-3.5" />
+                        </button>
+                      </div>
+
+                      {/* Number: Moved up close to title */}
+                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-none mt-1">
+                        {card.count}
+                      </span>
+
+                      {/* Trend Badge: Positioned away towards bottom */}
+                      <div className="mt-auto pt-2">
+                        {card.id === "pending" ? (
+                          <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                            <MessageSquareText className="size-3" />
+                            <span>Pending discussions</span>
+                          </div>
+                        ) : (
+                          <div
+                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border ${
+                              card.trend === "increased"
+                                ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                : "border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                            }`}
+                          >
+                            {card.trend === "increased" ? (
+                              <>
+                                <TrendingUp className="size-3" />
+                                <span>Increased from last month</span>
+                              </>
+                            ) : (
+                              <>
+                                <TrendingDown className="size-3" />
+                                <span>Decreased from last month</span>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  )
+                })}
               </div>
               
             </div>
