@@ -144,8 +144,15 @@ export function SectionCards() {
         {/* Scrollable Content Container */}
         <div className="flex-1 overflow-y-auto @container/main">
           
+          {/* Instructor View Badge */}
+          <div className="px-8 pt-8 lg:px-12">
+            <div className="inline-flex items-center rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
+              Instructor View
+            </div>
+          </div>
+
           {/* Massive Ghost Hero Section */}
-          <div className="px-8 py-10 lg:px-12 lg:py-14">
+          <div className="px-8 py-8 lg:px-12 lg:py-10">
             <div className="flex flex-col">
               
               {/* Top Row: Live Indicator & Title Hierarchy */}
@@ -224,12 +231,6 @@ export function SectionCards() {
 
           {/* Metrics Grid Section */}
           <div className="p-8 lg:p-12">
-            
-            {/* Instructor View Badge */}
-            <div className="mb-8 inline-flex items-center rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
-              Instructor View
-            </div>
-
             <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
               
               {/* Card 1: Current Project (Spans 2 columns) */}
