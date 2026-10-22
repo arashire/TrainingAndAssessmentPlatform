@@ -1,111 +1,60 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import {
   Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
-import { TrendingUpIcon, TrendingDownIcon } from "lucide-react"
 
 export function SectionCards() {
+  // We'll hardcode the visual data here for now so you can focus on the layout.
+  // The engineering team will replace this with real props later.
+  const subject = {
+    name: "Jane Doe",
+    branch: "U.S. Navy",
+    initials: "JD",
+    isLive: true
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            $1,250.00
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <TrendingUpIcon
-              />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month{" "}
-            <TrendingUpIcon className="size-4" />
+    // We are keeping your original grid wrapper so the main layout doesn't break
+    <div className="grid grid-cols-1 gap-4 px-4 lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      
+      {/* Subject Profile Card */}
+      <Card className="relative overflow-hidden @container/profile dark:bg-card">
+        {/* Using a standard div instead of CardContent to prevent import errors */}
+        <div className="flex items-center gap-5 p-6">
+          
+          {/* Avatar Container */}
+          <div className="relative shrink-0">
+            <div className="flex size-16 items-center justify-center overflow-hidden rounded-full bg-muted border border-border shadow-xs">
+              <span className="text-xl font-semibold text-muted-foreground">
+                {subject.initials}
+              </span>
+            </div>
+            
+            {/* Live Ping Indicator */}
+            {subject.isLive && (
+               <span className="absolute bottom-0 right-0 flex size-4 translate-x-1/4 translate-y-1/4">
+                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                 <span className="relative inline-flex size-4 rounded-full bg-emerald-500 border-2 border-background"></span>
+               </span>
+            )}
           </div>
-          <div className="text-muted-foreground">
-            Visitors for the last 6 months
+
+          {/* Typography */}
+          <div className="flex flex-col justify-center">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground line-clamp-1">
+              {subject.name}
+            </h2>
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground mt-0.5">
+              {subject.branch}
+            </p>
           </div>
-        </CardFooter>
+          
+        </div>
       </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>New Customers</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            1,234
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <TrendingDownIcon
-              />
-              -20%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Down 20% this period{" "}
-            <TrendingDownIcon className="size-4" />
-          </div>
-          <div className="text-muted-foreground">
-            Acquisition needs attention
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <TrendingUpIcon
-              />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention{" "}
-            <TrendingUpIcon className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Growth Rate</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <TrendingUpIcon
-              />
-              +4.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase{" "}
-            <TrendingUpIcon className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
-        </CardFooter>
-      </Card>
+
+      {/* Future real-time metric cards will go here */}
+
     </div>
   )
 }
