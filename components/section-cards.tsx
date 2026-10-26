@@ -211,18 +211,25 @@ export function SectionCards() {
               <button
                 key={student.id}
                 onClick={() => handleStudentSelect(student.id)}
-                className={`flex w-full items-center gap-3 rounded-full transition-all ${
-                  isSidebarExpanded ? "px-2 py-1.5 hover:bg-muted" : "justify-center"
+                className={`group/student-btn flex w-full items-center gap-3 rounded-full transition-all ${
+                  isSidebarExpanded ? "px-2 py-1.5 hover:bg-muted/40" : "justify-center py-1"
                 }`}
               >
                 <div 
-                  className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-xs transition-all ${
+                  className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-300 ease-out group-hover/student-btn:-translate-y-1 ${
                     isActive 
-                      ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background" 
-                      : "border-border bg-muted text-muted-foreground hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
+                      ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(0,0,0,0.15)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_10px_20px_-4px_rgba(0,0,0,0.25)]" 
+                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_12px_22px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_14px_26px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
                   }`}
                 >
                   <span className="text-sm font-semibold">{student.initials}</span>
+
+                  {/* Diagonal Light Sheen Overlay on Hover */}
+                  <div
+                    className="pointer-events-none absolute inset-y-0 -left-[100%] w-[100%] bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.55)_50%,transparent_75%)] dark:bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.25)_50%,transparent_75%)] transition-transform duration-0 group-hover/student-btn:translate-x-[200%] group-hover/student-btn:duration-700 group-hover/student-btn:ease-out"
+                    aria-hidden="true"
+                  />
+
                   {!isActive && student.isLive && !isSidebarExpanded && (
                     <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 border border-background translate-x-0.5 translate-y-0.5"></span>
                   )}
@@ -251,7 +258,7 @@ export function SectionCards() {
       <div className="flex flex-1 flex-col overflow-hidden bg-background">
         
         {/* Scrollable Content Container */}
-        <div className="flex-1 overflow-y-auto @container/main relative isolate [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]">
+        <div className="flex-1 overflow-y-auto @container/main relative isolate bg-background bg-[radial-gradient(circle,rgba(0,0,0,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:24px_24px] [transform:translateZ(0)] [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]">
           
           {/* Sticky Backdrop Blur Header */}
           <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]">
@@ -265,11 +272,11 @@ export function SectionCards() {
             </div>
           </header>
 
-          {/* Instructor View Badge */}
-          <div className="px-8 pt-8 lg:px-12">
-            <div className="inline-flex items-center rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
+          {/* Instructor View Header */}
+          <div className="px-6 pt-6">
+            <h2 className="text-base font-black uppercase tracking-wide text-foreground">
               Instructor View
-            </div>
+            </h2>
           </div>
 
           {/* Massive Ghost Hero Section */}
@@ -352,9 +359,9 @@ export function SectionCards() {
                 {metricCards.map((card) => {
                   const isFiltered = activeProjectFilter === card.id
                   return (
-                    <Card
+                    <div
                       key={card.id}
-                      className="flex flex-col justify-start p-4 min-h-32 rounded-xl border border-border/50 bg-card/60 backdrop-blur-xs shadow-xs transition-all hover:border-border"
+                      className="group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-32 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] transform-gpu hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:bg-black/[0.05] dark:hover:bg-white/[0.04] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out"
                     >
                       {/* Top: Left-justified Title inline with Right-aligned Filter Button */}
                       <div className="flex items-center justify-between gap-2">
@@ -363,10 +370,10 @@ export function SectionCards() {
                         </span>
                         <button
                           onClick={() => setActiveProjectFilter(isFiltered ? null : card.id)}
-                          className={`flex size-8 shrink-0 items-center justify-center rounded-full border border-border/50 transition-all ${
+                          className={`flex size-8 shrink-0 items-center justify-center rounded-full border transition-all ${
                             isFiltered
-                              ? "bg-primary text-primary-foreground shadow-sm scale-105"
-                              : "bg-background/80 text-muted-foreground hover:bg-muted hover:text-foreground active:scale-95"
+                              ? "bg-primary text-primary-foreground shadow-sm scale-105 border-transparent"
+                              : "border-black/[0.08] dark:border-white/10 bg-white/60 dark:bg-white/10 text-muted-foreground hover:bg-white/90 dark:hover:bg-white/20 hover:text-foreground active:scale-95 shadow-xs"
                           }`}
                           title={isFiltered ? `Clear ${card.title} filter` : `Filter ${card.title}`}
                         >
@@ -408,7 +415,13 @@ export function SectionCards() {
                           </div>
                         )}
                       </div>
-                    </Card>
+
+                      {/* Diagonal Light Sheen Overlay on Hover (Sweeps across top of card content) */}
+                      <div
+                        className="pointer-events-none absolute inset-y-0 -left-[100%] w-[100%] bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.55)_50%,transparent_75%)] dark:bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.22)_50%,transparent_75%)] transition-transform duration-0 group-hover/metric-card:translate-x-[200%] group-hover/metric-card:duration-700 group-hover/metric-card:ease-out"
+                        aria-hidden="true"
+                      />
+                    </div>
                   )
                 })}
               </div>
