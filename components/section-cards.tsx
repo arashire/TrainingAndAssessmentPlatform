@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { SearchIcon, ArrowUpRight, TrendingUp, TrendingDown, MessageSquareText } from "lucide-react"
 import { Card } from "@/components/ui/card" 
 import { BranchLogo } from "@/components/branch-logo"
+import { TopographicTerrain } from "@/components/topographic-terrain"
 
 // Mock data for the students
 const MOCK_STUDENTS = [
@@ -140,6 +141,7 @@ export function SectionCards() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeStudentId, setActiveStudentId] = useState(1)
   const [activeProjectFilter, setActiveProjectFilter] = useState<string | null>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   // Filter students based on search query
   const filteredStudents = MOCK_STUDENTS.filter(student => 
@@ -266,7 +268,18 @@ export function SectionCards() {
       <div className="flex flex-1 flex-col overflow-hidden bg-background">
         
         {/* Scrollable Content Container */}
-        <div className="flex-1 overflow-y-auto @container/main relative isolate bg-background bg-[radial-gradient(circle,rgba(0,0,0,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:24px_24px] [transform:translateZ(0)] [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]">
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto @container/main relative isolate bg-background [transform:translateZ(0)] [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]"
+        >
+          {/* 3D Topographical Contour Background (GSAP Scroll-reactive) */}
+          <TopographicTerrain scrollContainerRef={scrollContainerRef} />
+
+          {/* Crisp Dot Grid Overlay: Sits ON TOP of 3D terrain (-z-[5] vs -z-10), immune to 3D blur */}
+          <div
+            className="pointer-events-none sticky top-0 left-0 w-full h-[85vh] -mb-[85vh] -z-[5] bg-[radial-gradient(circle,rgba(0,0,0,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:48px_48px]"
+            aria-hidden="true"
+          />
           
           {/* Sticky Backdrop Blur Header */}
           <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]">
@@ -281,14 +294,14 @@ export function SectionCards() {
           </header>
 
           {/* Instructor View Header */}
-          <div className="px-6 pt-6">
+          <div className="px-6 pt-6 animate-[dashboardFadeUp_500ms_cubic-bezier(0.16,1,0.3,1)_both]">
             <h2 className="text-base font-black uppercase tracking-wide text-foreground">
               Instructor View
             </h2>
           </div>
 
           {/* Massive Ghost Hero Section */}
-          <div className="px-6 py-5 lg:px-8 lg:py-6">
+          <div className="px-6 py-5 lg:px-8 lg:py-6 animate-[dashboardFadeUp_600ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:100ms]">
             <div className="flex flex-col">
               
               {/* Top Row: Live Indicator & Title Hierarchy */}
@@ -370,71 +383,76 @@ export function SectionCards() {
 
               {/* Project Metric Cards: Positioned Underneath Main User Card */}
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
-                {metricCards.map((card) => {
+                {metricCards.map((card, index) => {
                   const isFiltered = activeProjectFilter === card.id
                   return (
                     <div
                       key={card.id}
-                      className="group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-32 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] transform-gpu hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:bg-black/[0.05] dark:hover:bg-white/[0.04] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out"
+                      className="animate-[dashboardFadeUp_600ms_cubic-bezier(0.16,1,0.3,1)_both]"
+                      style={{ animationDelay: `${180 + index * 80}ms` }}
                     >
-                      {/* Top: Left-justified Title inline with Right-aligned Filter Button */}
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                          {card.title}
-                        </span>
-                        <button
-                          onClick={() => setActiveProjectFilter(isFiltered ? null : card.id)}
-                          className={`flex size-8 shrink-0 items-center justify-center rounded-full border transition-all ${
-                            isFiltered
-                              ? "bg-primary text-primary-foreground shadow-sm scale-105 border-transparent"
-                              : "border-black/[0.08] dark:border-white/10 bg-white/60 dark:bg-white/10 text-muted-foreground hover:bg-white/90 dark:hover:bg-white/20 hover:text-foreground active:scale-95 shadow-xs"
-                          }`}
-                          title={isFiltered ? `Clear ${card.title} filter` : `Filter ${card.title}`}
-                        >
-                          <ArrowUpRight className="size-3.5" />
-                        </button>
-                      </div>
-
-                      {/* Number: Moved up close to title with tabular monospace formatting */}
-                      <span className="text-3xl sm:text-4xl font-black tracking-tight tabular-nums font-mono text-foreground leading-none mt-1">
-                        {card.count}
-                      </span>
-
-                      {/* Trend Badge: Positioned away towards bottom */}
-                      <div className="mt-auto pt-2">
-                        {card.id === "pending" ? (
-                          <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                            <MessageSquareText className="size-3" />
-                            <span>Pending discussions</span>
-                          </div>
-                        ) : (
-                          <div
-                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border ${
-                              card.trend === "increased"
-                                ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                : "border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                            }`}
-                          >
-                            {card.trend === "increased" ? (
-                              <>
-                                <TrendingUp className="size-3" />
-                                <span>Increased from last month</span>
-                              </>
-                            ) : (
-                              <>
-                                <TrendingDown className="size-3" />
-                                <span>Decreased from last month</span>
-                              </>
-                            )}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Diagonal Light Sheen Overlay on Hover (Sweeps across top of card content) */}
                       <div
-                        className="pointer-events-none absolute inset-y-0 -left-[100%] w-[100%] bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.55)_50%,transparent_75%)] dark:bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.22)_50%,transparent_75%)] transition-transform duration-0 group-hover/metric-card:translate-x-[200%] group-hover/metric-card:duration-700 group-hover/metric-card:ease-out"
-                        aria-hidden="true"
-                      />
+                        className="group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-32 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] transform-gpu hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:bg-black/[0.05] dark:hover:bg-white/[0.04] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out h-full"
+                      >
+                        {/* Top: Left-justified Title inline with Right-aligned Filter Button */}
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                            {card.title}
+                          </span>
+                          <button
+                            onClick={() => setActiveProjectFilter(isFiltered ? null : card.id)}
+                            className={`flex size-8 shrink-0 items-center justify-center rounded-full border transition-all ${
+                              isFiltered
+                                ? "bg-primary text-primary-foreground shadow-sm scale-105 border-transparent"
+                                : "border-black/[0.08] dark:border-white/10 bg-white/60 dark:bg-white/10 text-muted-foreground hover:bg-white/90 dark:hover:bg-white/20 hover:text-foreground active:scale-95 shadow-xs"
+                            }`}
+                            title={isFiltered ? `Clear ${card.title} filter` : `Filter ${card.title}`}
+                          >
+                            <ArrowUpRight className="size-3.5" />
+                          </button>
+                        </div>
+
+                        {/* Number: Moved up close to title with tabular monospace formatting */}
+                        <span className="text-3xl sm:text-4xl font-black tracking-tight tabular-nums font-mono text-foreground leading-none mt-1">
+                          {card.count}
+                        </span>
+
+                        {/* Trend Badge: Positioned away towards bottom */}
+                        <div className="mt-auto pt-2">
+                          {card.id === "pending" ? (
+                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                              <MessageSquareText className="size-3" />
+                              <span>Pending discussions</span>
+                            </div>
+                          ) : (
+                            <div
+                              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border ${
+                                card.trend === "increased"
+                                  ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                  : "border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                              }`}
+                            >
+                              {card.trend === "increased" ? (
+                                <>
+                                  <TrendingUp className="size-3" />
+                                  <span>Increased from last month</span>
+                                </>
+                              ) : (
+                                <>
+                                  <TrendingDown className="size-3" />
+                                  <span>Decreased from last month</span>
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Diagonal Light Sheen Overlay on Hover (Sweeps across top of card content) */}
+                        <div
+                          className="pointer-events-none absolute inset-y-0 -left-[100%] w-[100%] bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.55)_50%,transparent_75%)] dark:bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.22)_50%,transparent_75%)] transition-transform duration-0 group-hover/metric-card:translate-x-[200%] group-hover/metric-card:duration-700 group-hover/metric-card:ease-out"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
                   )
                 })}
@@ -451,7 +469,7 @@ export function SectionCards() {
             <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
               
               {/* Card 1: Current Project (Spans 2 columns) */}
-              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 dark:bg-card">
+              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
                 <div className="flex flex-col">
                   <h3 className="text-2xl font-bold tracking-tight text-foreground">Current Project</h3>
                   <p className="text-sm font-medium text-muted-foreground mt-0.5">Start Up Sequence Data</p>
@@ -462,7 +480,7 @@ export function SectionCards() {
               </Card>
               
               {/* Card 2: Repair Sequence */}
-              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Repair Sequence</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -470,7 +488,7 @@ export function SectionCards() {
               </Card>
 
               {/* Card 3: Scenario 1 */}
-              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 1</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -478,7 +496,7 @@ export function SectionCards() {
               </Card>
 
               {/* Card 4: Scenario 2 */}
-              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 2</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -486,7 +504,7 @@ export function SectionCards() {
               </Card>
 
               {/* Card 5: Scenario 3 */}
-              <Card className="flex min-h-48 flex-col p-6 dark:bg-card">
+              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 3</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
