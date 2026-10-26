@@ -14,6 +14,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Navy", 
     isLive: true, 
     score: 94, 
+    milestone: "Phase II: Instrument Solo",
+    lastEval: "14 mins ago",
     totalProjects: 14, 
     endedProjects: 8,
     runningProjects: 4,
@@ -30,6 +32,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Army", 
     isLive: false, 
     score: 78, 
+    milestone: "Tactical Navigation Qual",
+    lastEval: "2 hrs ago",
     totalProjects: 8, 
     endedProjects: 5,
     runningProjects: 2,
@@ -46,6 +50,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Air Force", 
     isLive: true, 
     score: 88, 
+    milestone: "Formations & Intercept",
+    lastEval: "45 mins ago",
     totalProjects: 19, 
     endedProjects: 11,
     runningProjects: 5,
@@ -62,6 +68,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Navy", 
     isLive: true, 
     score: 99, 
+    milestone: "Carrier Deck Landing",
+    lastEval: "1 hr ago",
     totalProjects: 26, 
     endedProjects: 17,
     runningProjects: 6,
@@ -78,6 +86,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Air Force", 
     isLive: false, 
     score: 62, 
+    milestone: "Basic Avionics & Radar",
+    lastEval: "3 hrs ago",
     totalProjects: 6, 
     endedProjects: 3,
     runningProjects: 2,
@@ -94,6 +104,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Marines", 
     isLive: true, 
     score: 85, 
+    milestone: "Close Air Support Check",
+    lastEval: "Yesterday",
     totalProjects: 12, 
     endedProjects: 7,
     runningProjects: 3,
@@ -110,6 +122,8 @@ const MOCK_STUDENTS = [
     branch: "U.S. Navy", 
     isLive: false, 
     score: 91, 
+    milestone: "Night Approach Cert",
+    lastEval: "5 hrs ago",
     totalProjects: 15, 
     endedProjects: 9,
     runningProjects: 4,
@@ -216,19 +230,13 @@ export function SectionCards() {
                 }`}
               >
                 <div 
-                  className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-300 ease-out group-hover/student-btn:-translate-y-1 ${
+                  className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-150 ease-out group-hover/student-btn:-translate-y-0.5 ${
                     isActive 
-                      ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(0,0,0,0.15)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_10px_20px_-4px_rgba(0,0,0,0.25)]" 
-                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_12px_22px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_14px_26px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
+                      ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(0,0,0,0.15)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(0,0,0,0.25)]" 
+                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
                   }`}
                 >
                   <span className="text-sm font-semibold">{student.initials}</span>
-
-                  {/* Diagonal Light Sheen Overlay on Hover */}
-                  <div
-                    className="pointer-events-none absolute inset-y-0 -left-[100%] w-[100%] bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.55)_50%,transparent_75%)] dark:bg-[linear-gradient(115deg,transparent_25%,rgba(255,255,255,0.25)_50%,transparent_75%)] transition-transform duration-0 group-hover/student-btn:translate-x-[200%] group-hover/student-btn:duration-700 group-hover/student-btn:ease-out"
-                    aria-hidden="true"
-                  />
 
                   {!isActive && student.isLive && !isSidebarExpanded && (
                     <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 border border-background translate-x-0.5 translate-y-0.5"></span>
@@ -280,18 +288,18 @@ export function SectionCards() {
           </div>
 
           {/* Massive Ghost Hero Section */}
-          <div className="px-8 py-8 lg:px-12 lg:py-10">
+          <div className="px-6 py-5 lg:px-8 lg:py-6">
             <div className="flex flex-col">
               
               {/* Top Row: Live Indicator & Title Hierarchy */}
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-4">
                 {activeSubject.isLive && (
-                  <span className="relative flex size-4">
+                  <span className="relative flex size-3.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex size-4 rounded-full bg-emerald-500"></span>
+                    <span className="relative inline-flex size-3.5 rounded-full bg-emerald-500"></span>
                   </span>
                 )}
-                <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   {activeSubject.isLive ? (
                     <>
                       <span className="text-emerald-500">LIVE</span> Student Performance
@@ -303,10 +311,10 @@ export function SectionCards() {
               </div>
               
               {/* Main User Card: Halo Avatar & Typography Stack */}
-              <div className="flex items-center gap-10">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 lg:gap-8">
                 
-                {/* 2x Halo Avatar Container */}
-                <div className="relative flex size-48 shrink-0 items-center justify-center">
+                {/* Compact Halo Avatar Container */}
+                <div className="relative flex size-36 shrink-0 items-center justify-center">
                   
                   {/* SVG Circular Progress Ring */}
                   <svg className="absolute inset-0 size-full -rotate-90 transform drop-shadow-sm" viewBox="0 0 100 100">
@@ -323,15 +331,15 @@ export function SectionCards() {
                     />
                   </svg>
 
-                  {/* 2x Inner Avatar */}
-                  <div className="relative flex size-32 items-center justify-center overflow-hidden rounded-full bg-muted border-2 border-background shadow-inner">
-                    <span className="text-5xl font-semibold text-muted-foreground">
+                  {/* Inner Avatar */}
+                  <div className="relative flex size-24 items-center justify-center overflow-hidden rounded-full bg-muted border-2 border-background shadow-inner">
+                    <span className="text-3xl font-bold text-muted-foreground">
                       {activeSubject.initials}
                     </span>
                   </div>
 
-                  {/* 2x Opaque Score Badge */}
-                  <div className={`absolute right-1 top-1 flex h-14 min-w-14 items-center justify-center rounded-full border-[4px] border-background px-2 text-2xl font-black text-white shadow-lg ${
+                  {/* Opaque Telemetry Score Badge with Tabular Monospace font */}
+                  <div className={`absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black text-white shadow-md tabular-nums font-mono ${
                         activeSubject.score >= 90 ? "bg-emerald-500" :
                         activeSubject.score >= 75 ? "bg-amber-500" : 
                         "bg-rose-500"
@@ -340,22 +348,28 @@ export function SectionCards() {
                   </div>
                 </div>
 
-                {/* 2x Typography Stack */}
+                {/* Typography Stack */}
                 <div className="flex flex-col justify-center">
-                  <h2 className="text-5xl font-bold tracking-tight text-foreground whitespace-nowrap pr-4">
+                  <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-foreground whitespace-nowrap">
                     {activeSubject.name}
                   </h2>
-                  <div className="flex items-center gap-2.5 mt-2">
-                    <BranchLogo branch={activeSubject.branch} className="size-6 text-muted-foreground shrink-0" />
-                    <p className="text-xl font-medium uppercase tracking-widest text-muted-foreground">
-                      {activeSubject.branch}
-                    </p>
+
+                  {/* Operational Telemetry Row */}
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-2 text-sm">
+                    <div className="flex items-center gap-1.5 text-muted-foreground font-semibold">
+                      <BranchLogo branch={activeSubject.branch} className="size-4 shrink-0" />
+                      <span className="text-xs font-bold uppercase tracking-wider">{activeSubject.branch}</span>
+                    </div>
+                    <span className="text-border">•</span>
+                    <span className="text-xs text-muted-foreground font-medium">
+                      Last Eval: <span className="font-mono text-foreground font-semibold">{activeSubject.lastEval}</span>
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Project Metric Cards: Positioned Underneath Main User Card */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
                 {metricCards.map((card) => {
                   const isFiltered = activeProjectFilter === card.id
                   return (
@@ -381,8 +395,8 @@ export function SectionCards() {
                         </button>
                       </div>
 
-                      {/* Number: Moved up close to title */}
-                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-none mt-1">
+                      {/* Number: Moved up close to title with tabular monospace formatting */}
+                      <span className="text-3xl sm:text-4xl font-black tracking-tight tabular-nums font-mono text-foreground leading-none mt-1">
                         {card.count}
                       </span>
 
