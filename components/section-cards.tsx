@@ -464,8 +464,14 @@ export function SectionCards() {
           {/* Full Width Thin Divider */}
           <hr className="w-full border-t border-border/50" />
 
-          {/* Metrics Grid Section */}
+          {/* Projects & Scores Grid Section */}
           <div className="p-8 lg:p-12">
+            <div className="mb-6">
+              <h2 className="text-xl font-bold tracking-tight text-foreground">
+                Projects & Scores
+              </h2>
+            </div>
+
             <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
               
               {/* Card 1: Current Project (Spans 2 columns) */}
@@ -511,6 +517,29 @@ export function SectionCards() {
                 </div>
               </Card>
 
+              {/* Card 6: Milestone Project (Spans 2 columns) */}
+              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground">Milestone Project</h3>
+                  <p className="text-sm font-medium text-muted-foreground mt-0.5">Competency Test 1</p>
+                </div>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                  Milestone project visualizations load here
+                </div>
+              </Card>
+
+            </div>
+          </div>
+
+          {/* Full Width Thin Divider */}
+          <hr className="w-full border-t border-border/50" />
+
+          {/* Metrics Section */}
+          <div className="p-8 lg:p-12">
+            <div className="mb-6">
+              <h2 className="text-xl font-bold tracking-tight text-foreground">
+                Metrics
+              </h2>
             </div>
           </div>
 
