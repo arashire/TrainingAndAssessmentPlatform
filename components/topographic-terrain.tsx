@@ -411,24 +411,31 @@ export function TopographicTerrain({ scrollContainerRef }: TopographicTerrainPro
     }
     animate()
 
-    // 7. Responsive Resize Observer
+    // 7. Responsive Resize Observer (rAF throttled to prevent GPU buffer thrashing during sidebar animation)
+    let resizeRafId: number | null = null
     const resizeObserver = new ResizeObserver(() => {
       if (!container) return
-      const newWidth = container.clientWidth
-      const newHeight = container.clientHeight
-      if (newWidth > 0 && newHeight > 0) {
-        camera.aspect = newWidth / newHeight
-        camera.updateProjectionMatrix()
-        camera.lookAt(0, 11.6, 0)
-        renderer.setSize(newWidth, newHeight)
-        updateScroll()
-      }
+      if (resizeRafId !== null) cancelAnimationFrame(resizeRafId)
+      resizeRafId = requestAnimationFrame(() => {
+        resizeRafId = null
+        if (!container) return
+        const newWidth = container.clientWidth
+        const newHeight = container.clientHeight
+        if (newWidth > 0 && newHeight > 0) {
+          camera.aspect = newWidth / newHeight
+          camera.updateProjectionMatrix()
+          camera.lookAt(0, 11.6, 0)
+          renderer.setSize(newWidth, newHeight)
+          updateScroll()
+        }
+      })
     })
     resizeObserver.observe(container)
 
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId)
+      if (resizeRafId !== null) cancelAnimationFrame(resizeRafId)
       scrollContainer.removeEventListener("scroll", updateScroll)
       window.removeEventListener("scroll", updateScroll)
       resizeObserver.disconnect()

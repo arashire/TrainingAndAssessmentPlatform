@@ -13,7 +13,7 @@ export function SiteHeader() {
   }, [])
 
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="flex h-(--header-height) shrink-0 items-center transition-[width,height] duration-600 ease-[cubic-bezier(0.32,0.72,0,1)] group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center justify-between pl-0 pr-4 lg:pr-6">
         <div className="flex items-center">
           <SidebarTrigger className="h-8 w-16 rounded-md text-white transition-all duration-200 hover:bg-transparent hover:text-white/80 hover:brightness-125 dark:text-white dark:hover:bg-transparent" />
