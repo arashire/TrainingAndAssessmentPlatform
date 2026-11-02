@@ -1,14 +1,49 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { SearchIcon, ArrowUpRight, TrendingUp, TrendingDown, MessageSquareText } from "lucide-react"
+import { useState, useRef, useEffect, useId } from "react"
+import { SearchIcon, ArrowUpRight, TrendingUp, TrendingDown, MessageSquareText, Check } from "lucide-react"
 import { Card } from "@/components/ui/card" 
 import { TopographicTerrain } from "@/components/topographic-terrain"
-import { HudCrosshair } from "@/components/hud-crosshair"
 import { DashboardInsignia } from "@/components/dashboard-insignia"
 
+interface Sortie {
+  code: string
+  progress: number
+  name?: string
+  live?: boolean
+}
+
+interface ChecklistItem {
+  name: string
+  done: boolean
+  detail?: string
+}
+
+interface Student {
+  id: number
+  initials: string
+  name: string
+  branch: string
+  isLive: boolean
+  score: number
+  milestone: string
+  lastEval: string
+  totalProjects: number
+  passedProjects: number
+  endedProjects: number
+  runningProjects: number
+  pendingProjects: number
+  recentScores: number[]
+  activeSorties: Sortie[]
+  pendingChecklist: ChecklistItem[]
+  projectTrend: "increased" | "decreased"
+  endedTrend: "increased" | "decreased"
+  runningTrend: "increased" | "decreased"
+  pendingTrend: "increased" | "decreased"
+}
+
 // Mock data for the students
-const MOCK_STUDENTS = [
+const MOCK_STUDENTS: Student[] = [
   { 
     id: 1, 
     initials: "JD", 
@@ -19,9 +54,21 @@ const MOCK_STUDENTS = [
     milestone: "Phase II: Instrument Solo",
     lastEval: "14 mins ago",
     totalProjects: 14, 
+    passedProjects: 13,
     endedProjects: 8,
     runningProjects: 4,
     pendingProjects: 2,
+    recentScores: [82, 86, 89, 91, 94],
+    activeSorties: [
+      { code: "SIM-01", progress: 85, name: "Instrument Solo", live: true },
+      { code: "TAC-04", progress: 62, name: "Combat Maneuvers" },
+      { code: "IFR-02", progress: 38, name: "Night Approach" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Flight Physical Cl. 1 Cleared" },
+      { name: "SIM BRIEF", done: true, detail: "Weather & Nav Briefing Signed" },
+      { name: "FLT AUTH", done: false, detail: "Squadron CO Sign-Off Pending" },
+    ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
     runningTrend: "decreased" as const,
@@ -37,9 +84,20 @@ const MOCK_STUDENTS = [
     milestone: "Tactical Navigation Qual",
     lastEval: "2 hrs ago",
     totalProjects: 8, 
+    passedProjects: 6,
     endedProjects: 5,
     runningProjects: 2,
     pendingProjects: 1,
+    recentScores: [72, 75, 74, 80, 78],
+    activeSorties: [
+      { code: "NAV-01", progress: 70, name: "Terrain Navigation" },
+      { code: "FORM-02", progress: 35, name: "Helicopter Formation" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Medical Readiness Validated" },
+      { name: "SIM BRIEF", done: false, detail: "Pre-Sortie Brief Incomplete" },
+      { name: "FLT AUTH", done: false, detail: "Instructor Authorization Hold" },
+    ],
     projectTrend: "decreased" as const,
     endedTrend: "increased" as const,
     runningTrend: "decreased" as const,
@@ -55,9 +113,21 @@ const MOCK_STUDENTS = [
     milestone: "Formations & Intercept",
     lastEval: "45 mins ago",
     totalProjects: 19, 
+    passedProjects: 16,
     endedProjects: 11,
     runningProjects: 5,
     pendingProjects: 3,
+    recentScores: [80, 83, 85, 84, 88],
+    activeSorties: [
+      { code: "INT-03", progress: 90, name: "High-Alt Intercept", live: true },
+      { code: "TAC-01", progress: 55, name: "BVR Radar Lock" },
+      { code: "NIGHT-02", progress: 20, name: "Low-Light Navigation" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "G-Tolerance Clearance Active" },
+      { name: "SIM BRIEF", done: true, detail: "Intercept Coordinates Approved" },
+      { name: "FLT AUTH", done: false, detail: "Air Corridor Clearance Queued" },
+    ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
     runningTrend: "increased" as const,
@@ -73,9 +143,21 @@ const MOCK_STUDENTS = [
     milestone: "Carrier Deck Landing",
     lastEval: "1 hr ago",
     totalProjects: 26, 
+    passedProjects: 26,
     endedProjects: 17,
     runningProjects: 6,
     pendingProjects: 3,
+    recentScores: [94, 96, 97, 98, 99],
+    activeSorties: [
+      { code: "DECK-01", progress: 95, name: "Carrier Trap 3-Wire", live: true },
+      { code: "REFUEL", progress: 78, name: "Night Basket Hook" },
+      { code: "DOGFIGHT", progress: 60, name: "BFM Tactical Engagement" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Top Gun Physical Cleared" },
+      { name: "SIM BRIEF", done: true, detail: "CAG Briefing Signed Off" },
+      { name: "FLT AUTH", done: true, detail: "All Clear - Flight Ready" },
+    ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
     runningTrend: "increased" as const,
@@ -91,9 +173,20 @@ const MOCK_STUDENTS = [
     milestone: "Basic Avionics & Radar",
     lastEval: "3 hrs ago",
     totalProjects: 6, 
+    passedProjects: 3,
     endedProjects: 3,
     runningProjects: 2,
     pendingProjects: 1,
+    recentScores: [58, 65, 60, 59, 62],
+    activeSorties: [
+      { code: "RADAR-01", progress: 45, name: "APG-83 Calibration" },
+      { code: "AVIONICS", progress: 25, name: "HUD Mode Diagnostics" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Annual Flight Exam Valid" },
+      { name: "SIM BRIEF", done: false, detail: "Awaiting Radar Specialist" },
+      { name: "FLT AUTH", done: false, detail: "Remediation Review Scheduled" },
+    ],
     projectTrend: "decreased" as const,
     endedTrend: "decreased" as const,
     runningTrend: "decreased" as const,
@@ -109,9 +202,21 @@ const MOCK_STUDENTS = [
     milestone: "Close Air Support Check",
     lastEval: "Yesterday",
     totalProjects: 12, 
+    passedProjects: 10,
     endedProjects: 7,
     runningProjects: 3,
     pendingProjects: 2,
+    recentScores: [79, 81, 80, 86, 85],
+    activeSorties: [
+      { code: "CAS-02", progress: 80, name: "Close Air Support", live: true },
+      { code: "GUNNERY", progress: 50, name: "Strafe Run & Target" },
+      { code: "RECON", progress: 30, name: "Forward Observer Comms" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Marine Aviation Med Verified" },
+      { name: "SIM BRIEF", done: true, detail: "JTAC Protocol Brief Completed" },
+      { name: "FLT AUTH", done: false, detail: "Range Safety Approval Pending" },
+    ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
     runningTrend: "decreased" as const,
@@ -127,9 +232,20 @@ const MOCK_STUDENTS = [
     milestone: "Night Approach Cert",
     lastEval: "5 hrs ago",
     totalProjects: 15, 
+    passedProjects: 14,
     endedProjects: 9,
     runningProjects: 4,
     pendingProjects: 2,
+    recentScores: [85, 87, 88, 92, 91],
+    activeSorties: [
+      { code: "NIGHT-01", progress: 75, name: "NVG Approach Pattern" },
+      { code: "INST-04", progress: 45, name: "Blind Instrument Descent" },
+    ],
+    pendingChecklist: [
+      { name: "MED CLEAR", done: true, detail: "Night Vision Physical Passed" },
+      { name: "SIM BRIEF", done: true, detail: "Approach Deck Plan Filed" },
+      { name: "FLT AUTH", done: false, detail: "LSO Sign-Off Pending" },
+    ],
     projectTrend: "decreased" as const,
     endedTrend: "increased" as const,
     runningTrend: "decreased" as const,
@@ -137,13 +253,51 @@ const MOCK_STUDENTS = [
   },
 ];
 
+// Generates smooth cubic bezier spline for historical sparkline (Card 2)
+function generateSmoothPath(scores: number[], width = 160, height = 30) {
+  if (!scores || scores.length === 0) return { path: "", areaPath: "", points: [] }
+  const minVal = Math.min(...scores) - 4
+  const maxVal = Math.max(...scores) + 4
+  const range = maxVal - minVal || 1
+  
+  const stepX = (width - 12) / (scores.length - 1)
+  const points = scores.map((score, i) => ({
+    x: 6 + i * stepX,
+    y: height - 6 - ((score - minVal) / range) * (height - 12),
+    val: score,
+  }))
+
+  if (points.length === 1) {
+    return { path: `M ${points[0].x} ${points[0].y}`, areaPath: "", points }
+  }
+
+  let path = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i === 0 ? i : i - 1]
+    const p1 = points[i]
+    const p2 = points[i + 1]
+    const p3 = points[i + 2] || p2
+    const cp1x = p1.x + (p2.x - p0.x) / 6
+    const cp1y = p1.y + (p2.y - p0.y) / 6
+    const cp2x = p2.x - (p3.x - p1.x) / 6
+    const cp2y = p2.y - (p3.y - p1.y) / 6
+    path += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`
+  }
+
+  const last = points[points.length - 1]
+  const first = points[0]
+  const areaPath = `${path} L ${last.x.toFixed(1)} ${height} L ${first.x.toFixed(1)} ${height} Z`
+
+  return { path, areaPath, points }
+}
+
 export function SectionCards() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [activeStudentId, setActiveStudentId] = useState(1)
   const [activeProjectFilter, setActiveProjectFilter] = useState<string | null>(null)
+  const [sparklineHoverIdx, setSparklineHoverIdx] = useState<number | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const dashboardAreaRef = useRef<HTMLDivElement>(null)
   const [projectsInView, setProjectsInView] = useState(false)
   const projectsSectionRef = useRef<HTMLDivElement>(null)
   const [metricsInView, setMetricsInView] = useState(false)
@@ -222,11 +376,11 @@ export function SectionCards() {
 
   return (
     // Root container
-    <div className="flex w-full h-[85vh] min-h-[600px] overflow-hidden rounded-xl border border-border/50 bg-background text-foreground shadow-sm font-sans [transform:translateZ(0)]">
+    <div className="flex w-full flex-1 h-full min-h-0 overflow-hidden rounded-xl border border-black/10 dark:border-border/50 bg-white/10 dark:bg-background text-foreground shadow-sm font-sans [transform:translateZ(0)]">
       
       {/* Left Sidebar: Expanding Column */}
       <div 
-        className={`flex flex-col border-r border-border/50 bg-muted/20 dark:bg-[#0C0E12] transition-all duration-300 ease-in-out shrink-0 ${
+        className={`flex flex-col border-r border-black/10 dark:border-border/50 bg-white/20 dark:bg-[#0C0E12] backdrop-blur-sm transition-all duration-300 ease-in-out shrink-0 ${
           isSidebarExpanded ? "w-64" : "w-16"
         }`}
       >
@@ -234,10 +388,10 @@ export function SectionCards() {
         <div className="flex h-20 shrink-0 items-center border-b border-border/50 px-3">
           <button 
             onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
-            className="flex size-10 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex size-10 shrink-0 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 hover:text-white"
             title="Toggle Search"
           >
-            <SearchIcon className="size-5" />
+            <SearchIcon className="size-5 text-white" />
           </button>
           
           {isSidebarExpanded && (
@@ -246,7 +400,7 @@ export function SectionCards() {
               placeholder="Search students..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="ml-3 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              className="ml-3 w-full bg-transparent text-sm outline-none text-[#163144] placeholder:text-[#163144]/60 dark:text-white dark:placeholder:text-white/60"
               autoFocus
             />
           )}
@@ -268,8 +422,8 @@ export function SectionCards() {
                 <div 
                   className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-150 ease-out group-hover/student-btn:-translate-y-0.5 ${
                     isActive 
-                      ? "border-blue-600 dark:border-blue-500/60 bg-blue-600 dark:bg-blue-500/50 text-white ring-2 ring-blue-600 dark:ring-blue-500/50 ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(37,99,235,0.35)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(37,99,235,0.45)]" 
-                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
+                      ? "border-[#163144] dark:border-blue-500/60 bg-[#163144] dark:bg-blue-500/50 text-white ring-2 ring-[#163144] dark:ring-blue-500/50 ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(22,49,68,0.35)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(22,49,68,0.45)]" 
+                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-[#163144] dark:text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
                   }`}
                 >
                   <span className="text-sm font-semibold">{student.initials}</span>
@@ -281,11 +435,11 @@ export function SectionCards() {
 
                 {isSidebarExpanded && (
                   <div className="flex flex-col items-start overflow-hidden">
-                    <span className={`truncate text-sm font-medium ${isActive ? "text-blue-600 dark:text-blue-400" : "text-foreground"}`}>
+                    <span className={`truncate text-sm font-medium ${isActive ? "text-[#163144] font-bold dark:text-blue-400" : "text-[#163144] dark:text-foreground"}`}>
                       {student.name}
                     </span>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">{student.branch}</span>
+                      <span className="text-xs text-[#163144]/75 dark:text-muted-foreground uppercase tracking-wider">{student.branch}</span>
                       {student.isLive && (
                         <span className="size-1.5 rounded-full bg-blue-600 dark:bg-[#60A5FA]"></span>
                       )}
@@ -300,23 +454,19 @@ export function SectionCards() {
 
       {/* Main Dashboard Area */}
       <div 
-        ref={dashboardAreaRef}
-        className="relative flex flex-1 flex-col overflow-hidden bg-background cursor-none [&_button]:cursor-none [&_a]:cursor-none [&_input]:cursor-none"
+        className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-[#587589] to-[#dff3eb] dark:from-transparent dark:to-transparent dark:bg-background"
       >
-        {/* HUD Crosshair & Coordinate Telemetry (Avionics Reticle) */}
-        <HudCrosshair containerRef={dashboardAreaRef} />
-        
         {/* Scrollable Content Container */}
         <div 
           ref={scrollContainerRef}
-          className="flex-1 overflow-y-auto @container/main relative isolate bg-background [transform:translateZ(0)] [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]"
+          className="flex-1 overflow-y-auto @container/main relative isolate bg-transparent dark:bg-background [transform:translateZ(0)] [-webkit-overflow-scrolling:touch] [overscroll-behavior:contain]"
         >
           {/* 3D Topographical Contour Background (GSAP Scroll-reactive) */}
           <TopographicTerrain scrollContainerRef={scrollContainerRef} />
 
           {/* Crisp Dot Grid Overlay: Sits ON TOP of 3D terrain (-z-[5] vs -z-10), immune to 3D blur */}
           <div
-            className="pointer-events-none sticky top-0 left-0 w-full h-[85vh] -mb-[85vh] -z-[5] bg-[radial-gradient(circle,rgba(0,0,0,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:48px_48px]"
+            className="pointer-events-none sticky top-0 left-0 w-full h-[85vh] -mb-[85vh] -z-[5] bg-[radial-gradient(circle,rgba(255,255,255,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:48px_48px]"
             aria-hidden="true"
           />
 
@@ -324,12 +474,12 @@ export function SectionCards() {
           <DashboardInsignia />
           
           {/* Sticky Backdrop Blur Header */}
-          <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]">
+          <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-black/10 dark:border-border/50 bg-white/20 dark:bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] shadow-[0_12px_32px_-4px_rgba(0,0,0,0.2),0_4px_12px_-2px_rgba(0,0,0,0.1)] dark:shadow-[0_16px_36px_-4px_rgba(0,0,0,0.6),0_6px_16px_-2px_rgba(0,0,0,0.4)]">
             <div className="flex flex-col justify-center">
-              <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              <h1 className="text-2xl font-bold tracking-tight text-white">
                 Squadron 231
               </h1>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-sm font-medium text-white">
                 3rd Class
               </p>
             </div>
@@ -347,7 +497,7 @@ export function SectionCards() {
                     <span className="relative inline-flex size-3.5 rounded-full bg-blue-600 dark:bg-[#60A5FA]"></span>
                   </span>
                 )}
-                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                <span className="text-xs font-bold uppercase tracking-widest text-white">
                   {activeSubject.isLive ? (
                     <>
                       <span className="text-blue-600 dark:text-[#60A5FA]">LIVE</span> Student Performance
@@ -373,10 +523,10 @@ export function SectionCards() {
                       strokeDashoffset={276.46 - (activeSubject.score / 100) * 276.46}
                       className={`transition-all duration-1000 ease-out ${
                         activeSubject.score >= 90
-                          ? "stroke-blue-600 dark:stroke-[#60A5FA] [filter:drop-shadow(0_0_6px_rgba(37,99,235,0.4))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.65))]"
+                          ? "stroke-[#163144] dark:stroke-[#60A5FA] [filter:drop-shadow(0_0_6px_rgba(22,49,68,0.3))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.65))]"
                           : activeSubject.score >= 75
-                          ? "stroke-blue-600/70 dark:stroke-[#60A5FA]/70"
-                          : "stroke-blue-600/35 dark:stroke-[#60A5FA]/35"
+                          ? "stroke-[#163144]/70 dark:stroke-[#60A5FA]/70"
+                          : "stroke-[#163144]/35 dark:stroke-[#60A5FA]/35"
                       }`}
                     />
                   </svg>
@@ -389,23 +539,23 @@ export function SectionCards() {
                   </div>
 
                   {/* Opaque Telemetry Score Badge with Tabular Monospace font */}
-                  <div className="absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black bg-blue-600 dark:bg-[#60A5FA] text-white dark:text-zinc-950 shadow-md tabular-nums font-mono">
+                  <div className="absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black bg-[#163144] dark:bg-[#60A5FA] text-white dark:text-zinc-950 shadow-md tabular-nums font-mono">
                     {activeSubject.score}
                   </div>
                 </div>
 
                 {/* Typography Stack */}
                 <div className="flex flex-col justify-center">
-                  <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-foreground whitespace-nowrap">
+                  <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white whitespace-nowrap">
                     {activeSubject.name}
                   </h2>
 
                   {/* Operational Telemetry Row */}
                   <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-2 text-sm">
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{activeSubject.branch}</span>
-                    <span className="text-border">•</span>
-                    <span className="text-xs text-muted-foreground font-medium">
-                      Last Eval: <span className="font-mono text-foreground font-semibold">{activeSubject.lastEval}</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-white">{activeSubject.branch}</span>
+                    <span className="text-white/60">•</span>
+                    <span className="text-xs text-white font-medium">
+                      Last Eval: <span className="font-mono text-white font-semibold">{activeSubject.lastEval}</span>
                     </span>
                   </div>
                 </div>
@@ -422,11 +572,11 @@ export function SectionCards() {
                       style={{ animationDelay: `${180 + index * 80}ms` }}
                     >
                       <div
-                        className="group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-32 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] transform-gpu hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:bg-black/[0.05] dark:hover:bg-white/[0.04] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out h-full"
+                        className="group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-[185px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out h-full"
                       >
                         {/* Top: Left-justified Title inline with Right-aligned Filter Button */}
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                          <span className="text-xs font-bold uppercase tracking-widest text-white dark:text-muted-foreground">
                             {card.title}
                           </span>
                           <button
@@ -443,27 +593,258 @@ export function SectionCards() {
                         </div>
 
                         {/* Number: Moved up close to title with tabular monospace formatting */}
-                        <span className="text-3xl sm:text-4xl font-black tracking-tight tabular-nums font-mono text-foreground leading-none mt-1">
+                        <span className="text-3xl sm:text-4xl font-black tracking-tight tabular-nums font-mono text-white dark:text-foreground leading-none mt-1">
                           {card.count}
                         </span>
 
+                        {/* Micro HUD Chart */}
+                        <div className="my-2.5 flex-1 flex flex-col justify-center min-h-[46px]">
+                          {card.id === "total" && (() => {
+                            const passed = activeSubject.passedProjects
+                            const total = activeSubject.totalProjects
+                            const retry = Math.max(0, total - passed)
+                            const passRate = total > 0 ? Math.round((passed / total) * 100) : 0
+                            return (
+                              <div className="flex flex-col justify-center w-full relative">
+                                {/* Dual-Tone Segmented Ribbon */}
+                                <div className="h-2 w-full rounded-full bg-black/10 dark:bg-white/10 overflow-hidden flex gap-0.5 p-[0.5px]">
+                                  {/* Pass Segment */}
+                                  <div 
+                                    className="group/pass relative h-full rounded-full bg-[#163144] dark:bg-[#60A5FA] shadow-[0_0_8px_rgba(22,49,68,0.35)] dark:shadow-[0_0_8px_rgba(96,165,250,0.45)] hover:brightness-110 transition-all duration-300 ease-out cursor-pointer"
+                                    style={{ width: `${passRate}%` }}
+                                  >
+                                    {/* Tooltip on hover */}
+                                    <div className="pointer-events-none opacity-0 group-hover/pass:opacity-100 transition-all duration-150 absolute -top-8 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap">
+                                      QUALIFIED: {passed}/{total} ({passRate}%)
+                                    </div>
+                                  </div>
+
+                                  {/* Retry Segment */}
+                                  {retry > 0 && (
+                                    <div 
+                                      className="group/retry relative h-full rounded-full bg-[#163144]/25 dark:bg-[#60A5FA]/25 hover:bg-[#163144]/40 dark:hover:bg-[#60A5FA]/45 transition-all duration-300 ease-out cursor-pointer"
+                                      style={{ width: `${100 - passRate}%` }}
+                                    >
+                                      {/* Tooltip on hover */}
+                                      <div className="pointer-events-none opacity-0 group-hover/retry:opacity-100 transition-all duration-150 absolute -top-8 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-muted-foreground whitespace-nowrap">
+                                        RETEST: {retry}/{total} ({100 - passRate}%)
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                                {/* Micro Telemetry Legend */}
+                                <div className="flex items-center justify-between mt-1.5 font-mono text-[10px] uppercase font-semibold">
+                                  <div className="flex items-center gap-1 text-white dark:text-muted-foreground">
+                                    <span className="text-white dark:text-foreground font-bold">{passed} PASS</span>
+                                    <span className="opacity-40">•</span>
+                                    <span>{retry} RETRY</span>
+                                  </div>
+                                  <span className="text-[#163144] dark:text-[#60A5FA] font-bold">{passRate}% QUAL</span>
+                                </div>
+                              </div>
+                            )
+                          })()}
+
+                          {card.id === "ended" && (() => {
+                            const { path, areaPath, points } = generateSmoothPath(activeSubject.recentScores, 150, 30)
+                            const activeIdx = sparklineHoverIdx !== null ? sparklineHoverIdx : points.length - 1
+                            const activePoint = points[activeIdx] || points[points.length - 1]
+                            const gradId = `spark-grad-${activeSubject.id}`
+                            return (
+                              <div className="flex flex-col justify-center w-full relative">
+                                {/* Floating Tooltip if hovering */}
+                                {sparklineHoverIdx !== null && activePoint && (
+                                  <div 
+                                    className="pointer-events-none absolute -top-7 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap transition-all duration-150 -translate-x-1/2"
+                                    style={{ left: `${Math.max(28, Math.min(72, (activePoint.x / 150) * 100))}%` }}
+                                  >
+                                    SORTIE #{activeIdx + 1}: {activePoint.val} PTS
+                                  </div>
+                                )}
+
+                                <div 
+                                  className="w-full h-7 relative cursor-pointer"
+                                  onMouseLeave={() => setSparklineHoverIdx(null)}
+                                >
+                                  {/* Smoothed Curve & Area SVG (scales horizontally across card) */}
+                                  <svg className="w-full h-full overflow-visible" viewBox="0 0 150 30" preserveAspectRatio="none">
+                                    <defs>
+                                      <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" className="[stop-color:#163144] dark:[stop-color:#60A5FA]" stopOpacity="0.25" />
+                                        <stop offset="100%" className="[stop-color:#163144] dark:[stop-color:#60A5FA]" stopOpacity="0.0" />
+                                      </linearGradient>
+                                    </defs>
+                                    {areaPath && (
+                                      <path d={areaPath} fill={`url(#${gradId})`} className="transition-all duration-500 ease-out" />
+                                    )}
+                                    {path && (
+                                      <path 
+                                        d={path} 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        strokeWidth="2" 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round" 
+                                        className="text-[#163144] dark:text-[#60A5FA] transition-all duration-500 ease-out [filter:drop-shadow(0_1px_4px_rgba(22,49,68,0.25))] dark:[filter:drop-shadow(0_1px_4px_rgba(96,165,250,0.4))]" 
+                                      />
+                                    )}
+
+                                    {/* Invisible interactive hover hitzones across the 5 points */}
+                                    {points.map((pt, i) => (
+                                      <rect 
+                                        key={i}
+                                        x={pt.x - 14}
+                                        y={0}
+                                        width={28}
+                                        height={30}
+                                        fill="transparent"
+                                        className="cursor-pointer"
+                                        onMouseEnter={() => setSparklineHoverIdx(i)}
+                                      />
+                                    ))}
+                                  </svg>
+
+                                  {/* Vertical Telemetry Guideline (HTML overlay) */}
+                                  {sparklineHoverIdx !== null && activePoint && (
+                                    <div 
+                                      className="pointer-events-none absolute top-0 bottom-0 w-0 border-l border-dashed border-[#163144]/40 dark:border-[#60A5FA]/60 transition-all duration-150"
+                                      style={{ left: `${(activePoint.x / 150) * 100}%` }}
+                                    />
+                                  )}
+
+                                  {/* Perfectly Circular Active Indicator (HTML overlay - never squished by SVG scaling) */}
+                                  {activePoint && (
+                                    <div 
+                                      className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center transition-all duration-150"
+                                      style={{ 
+                                        left: `${(activePoint.x / 150) * 100}%`,
+                                        top: `${(activePoint.y / 30) * 100}%`
+                                      }}
+                                    >
+                                      {/* Steady circular halo */}
+                                      <div className="absolute size-4 rounded-full bg-[#163144]/20 dark:bg-[#60A5FA]/30" />
+                                      {/* Core circle */}
+                                      <div className="size-2 rounded-full bg-[#163144] dark:bg-[#60A5FA] border-[1.5px] border-background shadow-xs" />
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div className="flex items-center justify-between mt-1 font-mono text-[10px] uppercase font-semibold">
+                                  <span className="text-white dark:text-muted-foreground tracking-wider">
+                                    {sparklineHoverIdx !== null ? `SORTIE ${sparklineHoverIdx + 1} OF ${points.length}` : "5-SORTIE TREND"}
+                                  </span>
+                                  <span className="text-[#163144] dark:text-[#60A5FA] font-bold">
+                                    {activePoint.val} PTS {sparklineHoverIdx === null ? "PEAK" : ""}
+                                  </span>
+                                </div>
+                              </div>
+                            )
+                          })()}
+
+                          {card.id === "running" && (
+                            <div className="flex flex-col justify-center w-full space-y-1">
+                              {activeSubject.activeSorties.slice(0, 2).map((sortie) => (
+                                <div 
+                                  key={sortie.code} 
+                                  className="group/sortie relative flex items-center gap-2 font-mono text-[10px] hover:bg-black/5 dark:hover:bg-white/5 px-1 -mx-1 py-0.5 rounded cursor-pointer transition-colors"
+                                >
+                                  {/* Floating HUD Tooltip */}
+                                  <div className="pointer-events-none opacity-0 group-hover/sortie:opacity-100 transition-all duration-150 absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap">
+                                    {sortie.code}: {sortie.name || "Sortie"} • {sortie.progress}% ACTIVE
+                                  </div>
+
+                                  <span className="w-14 truncate font-bold text-white dark:text-muted-foreground flex items-center gap-1">
+                                    {sortie.live && (
+                                      <span className="size-1.5 rounded-full bg-blue-600 dark:bg-[#60A5FA] animate-pulse shrink-0" />
+                                    )}
+                                    {sortie.code}
+                                  </span>
+                                  <div className="h-1.5 flex-1 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden p-[0.5px]">
+                                    <div 
+                                      className="h-full rounded-full bg-[#163144] dark:bg-[#60A5FA] transition-all duration-700 ease-out"
+                                      style={{ width: `${sortie.progress}%` }}
+                                    />
+                                  </div>
+                                  <span className="w-7 text-right font-semibold text-white dark:text-foreground tabular-nums">
+                                    {sortie.progress}%
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          {card.id === "pending" && (
+                            <div className="flex flex-col justify-center w-full">
+                              <div className="relative flex items-center justify-between px-1 my-0.5">
+                                {/* Rail */}
+                                <div className="absolute left-3 right-3 top-2 -translate-y-1/2 h-[1.5px] bg-black/10 dark:bg-white/15" />
+                                {activeSubject.pendingChecklist.map((item, idx) => {
+                                  const alignClass = idx === 0 
+                                    ? "left-0 translate-x-0" 
+                                    : idx === activeSubject.pendingChecklist.length - 1 
+                                    ? "right-0 translate-x-0" 
+                                    : "left-1/2 -translate-x-1/2"
+                                  return (
+                                    <div key={item.name} className="group/node relative z-10 flex flex-col items-center cursor-pointer">
+                                      {/* Floating HUD Tooltip */}
+                                      <div className={`pointer-events-none opacity-0 group-hover/node:opacity-100 transition-all duration-150 absolute -top-7.5 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold whitespace-nowrap text-foreground ${alignClass}`}>
+                                        <span className={item.done ? "text-[#163144] dark:text-[#60A5FA]" : "text-amber-500"}>
+                                          {item.done ? "CLEARED: " : "WAITING: "}
+                                        </span>
+                                        {item.detail || item.name}
+                                      </div>
+
+                                      <div 
+                                        className={`size-4 rounded-full flex items-center justify-center border transition-all group-hover/node:scale-110 ${
+                                          item.done 
+                                            ? "bg-[#163144] dark:bg-[#60A5FA] border-[#163144] dark:border-[#60A5FA] text-white dark:text-zinc-950 shadow-[0_0_8px_rgba(22,49,68,0.3)] dark:shadow-[0_0_8px_rgba(96,165,250,0.4)]"
+                                            : "bg-background border-white/40 dark:border-muted-foreground/40 text-white dark:text-muted-foreground"
+                                        }`}
+                                      >
+                                        {item.done ? (
+                                          <Check className="size-2.5 stroke-[3]" />
+                                        ) : (
+                                          <span className="size-1 rounded-full bg-white/60 dark:bg-muted-foreground/60" />
+                                        )}
+                                      </div>
+                                      <span className={`mt-1 font-mono text-[8px] uppercase tracking-wider font-bold whitespace-nowrap transition-colors group-hover/node:text-foreground ${
+                                        item.done ? "text-white dark:text-foreground" : "text-white/80 dark:text-muted-foreground"
+                                      }`}>
+                                        {item.name}
+                                      </span>
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                              <div className="flex items-center justify-between mt-1 font-mono text-[10px] uppercase font-semibold">
+                                <span className="text-white dark:text-muted-foreground">
+                                  {activeSubject.pendingChecklist.filter(c => c.done).length}/{activeSubject.pendingChecklist.length} READY
+                                </span>
+                                <span className="text-[#163144] dark:text-[#60A5FA] font-bold">
+                                  {activeSubject.pendingChecklist.every(c => c.done) ? "ALL CLEARED" : "AUTH QUEUED"}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
                         {/* Trend Badge: Positioned away towards bottom */}
-                        <div className="mt-auto pt-2">
+                        <div className="mt-auto pt-3.5">
                           {card.id === "pending" ? (
-                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-blue-600/20 bg-blue-600/10 text-blue-600 dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
-                              <MessageSquareText className="size-3" />
+                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#163144]/20 bg-[#163144]/10 text-[#163144] dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
+                              <MessageSquareText className="size-3.5" />
                               <span>Pending discussions</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-blue-600/20 bg-blue-600/10 text-blue-600 dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
+                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#163144]/20 bg-[#163144]/10 text-[#163144] dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
                               {card.trend === "increased" ? (
                                 <>
-                                  <TrendingUp className="size-3" />
+                                  <TrendingUp className="size-3.5" />
                                   <span>Increased from last month</span>
                                 </>
                               ) : (
                                 <>
-                                  <TrendingDown className="size-3" />
+                                  <TrendingDown className="size-3.5" />
                                   <span>Decreased from last month</span>
                                 </>
                               )}
@@ -491,7 +872,7 @@ export function SectionCards() {
           {/* Projects & Scores Grid Section */}
           <div ref={projectsSectionRef} className="p-8 lg:p-12">
             <div className={`mb-6 ${projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both]" : "opacity-0"}`}>
-              <h2 className="text-xl font-bold tracking-tight text-foreground">
+              <h2 className="text-xl font-bold tracking-tight text-[#163144] dark:text-foreground">
                 Projects & Scores
               </h2>
             </div>
@@ -505,10 +886,10 @@ export function SectionCards() {
                   : "opacity-0"
               }`}>
                 <div className="flex flex-col">
-                  <h3 className="text-2xl font-bold tracking-tight text-foreground">Current Project</h3>
-                  <p className="text-sm font-medium text-muted-foreground mt-0.5">Start Up Sequence Data</p>
+                  <h3 className="text-2xl font-bold tracking-tight text-[#163144] dark:text-foreground">Current Project</h3>
+                  <p className="text-sm font-medium text-[#163144]/80 dark:text-muted-foreground mt-0.5">Start Up Sequence Data</p>
                 </div>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Current project visualizations load here
                 </div>
               </Card>
@@ -519,8 +900,8 @@ export function SectionCards() {
                   ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:240ms]"
                   : "opacity-0"
               }`}>
-                <h3 className="text-lg font-bold tracking-tight text-foreground">Repair Sequence</h3>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <h3 className="text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">Repair Sequence</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Data loads here
                 </div>
               </Card>
@@ -531,8 +912,8 @@ export function SectionCards() {
                   ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:360ms]"
                   : "opacity-0"
               }`}>
-                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 1</h3>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <h3 className="text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">Scenario 1</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Data loads here
                 </div>
               </Card>
@@ -543,8 +924,8 @@ export function SectionCards() {
                   ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:480ms]"
                   : "opacity-0"
               }`}>
-                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 2</h3>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <h3 className="text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">Scenario 2</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Data loads here
                 </div>
               </Card>
@@ -555,8 +936,8 @@ export function SectionCards() {
                   ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:600ms]"
                   : "opacity-0"
               }`}>
-                <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 3</h3>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <h3 className="text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">Scenario 3</h3>
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Data loads here
                 </div>
               </Card>
@@ -568,10 +949,10 @@ export function SectionCards() {
                   : "opacity-0"
               }`}>
                 <div className="flex flex-col">
-                  <h3 className="text-2xl font-bold tracking-tight text-foreground">Milestone Project</h3>
-                  <p className="text-sm font-medium text-muted-foreground mt-0.5">Competency Test 1</p>
+                  <h3 className="text-2xl font-bold tracking-tight text-[#163144] dark:text-foreground">Milestone Project</h3>
+                  <p className="text-sm font-medium text-[#163144]/80 dark:text-muted-foreground mt-0.5">Competency Test 1</p>
                 </div>
-                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
+                <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#163144]/20 dark:border-border/60 bg-muted/10 text-xs text-[#163144]/70 dark:text-muted-foreground/70">
                   Milestone project visualizations load here
                 </div>
               </Card>
@@ -585,7 +966,7 @@ export function SectionCards() {
           {/* Metrics Section */}
           <div ref={metricsSectionRef} className="p-8 lg:p-12">
             <div className={`mb-6 ${metricsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both]" : "opacity-0"}`}>
-              <h2 className="text-xl font-bold tracking-tight text-foreground">
+              <h2 className="text-xl font-bold tracking-tight text-[#163144] dark:text-foreground">
                 Metrics
               </h2>
             </div>

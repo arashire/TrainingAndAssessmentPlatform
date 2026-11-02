@@ -46,7 +46,7 @@ export function NavUser({
                 {user.email}
               </span>
             </div>
-            <EllipsisVerticalIcon className="ml-auto size-4" />
+            <EllipsisVerticalIcon className="ml-auto size-5" />
           </SidebarMenuButton>
           <DropdownMenu
             className="min-w-56"

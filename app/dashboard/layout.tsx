@@ -9,6 +9,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <SidebarProvider
+      className="h-svh max-h-svh overflow-hidden"
       style={
         {
           "--sidebar-width": "calc(var(--spacing) * 72)",
@@ -17,10 +18,10 @@ export default function DashboardLayout({
       }
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="flex flex-col h-[calc(100svh-1rem)] max-h-[calc(100svh-1rem)] overflow-hidden bg-gradient-to-b from-[#587589] to-[#dff3eb] dark:from-transparent dark:to-transparent dark:bg-background">
         <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
+        <div className="flex flex-1 flex-col min-h-0 overflow-hidden p-3 sm:p-4 pt-2 sm:pt-2">
+          <div className="@container/main flex flex-1 flex-col h-full min-h-0 overflow-hidden">
             {children}
           </div>
         </div>

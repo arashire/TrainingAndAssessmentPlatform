@@ -16,11 +16,11 @@ export function SiteHeader() {
     <header className="flex h-(--header-height) shrink-0 items-center transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center justify-between pl-0 pr-4 lg:pr-6">
         <div className="flex items-center">
-          <SidebarTrigger className="h-8 w-16 rounded-md text-muted-foreground transition-all duration-200 hover:bg-transparent hover:text-foreground hover:brightness-125 dark:hover:bg-transparent" />
-          <h1 className="pl-6 text-base font-bold tracking-wide flex items-center gap-2">
+          <SidebarTrigger className="h-8 w-16 rounded-md text-white transition-all duration-200 hover:bg-transparent hover:text-white/80 hover:brightness-125 dark:text-white dark:hover:bg-transparent" />
+          <h1 className="pl-6 text-base font-bold tracking-wide flex items-center gap-2 text-white">
             <span>DASHBOARD</span>
-            <span className="text-muted-foreground/60 font-mono font-normal">//</span>
-            <span className="italic font-light">INSTRUCTOR VIEW</span>
+            <span className="text-white/60 font-mono font-normal">|</span>
+            <span className="font-light">INSTRUCTOR VIEW</span>
           </h1>
         </div>
 
