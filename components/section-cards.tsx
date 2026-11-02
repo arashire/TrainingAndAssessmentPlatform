@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { SearchIcon, ArrowUpRight, TrendingUp, TrendingDown, MessageSquareText } from "lucide-react"
 import { Card } from "@/components/ui/card" 
-import { BranchLogo } from "@/components/branch-logo"
 import { TopographicTerrain } from "@/components/topographic-terrain"
+import { HudCrosshair } from "@/components/hud-crosshair"
+import { DashboardInsignia } from "@/components/dashboard-insignia"
 
 // Mock data for the students
 const MOCK_STUDENTS = [
@@ -142,6 +143,39 @@ export function SectionCards() {
   const [activeStudentId, setActiveStudentId] = useState(1)
   const [activeProjectFilter, setActiveProjectFilter] = useState<string | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const dashboardAreaRef = useRef<HTMLDivElement>(null)
+  const [projectsInView, setProjectsInView] = useState(false)
+  const projectsSectionRef = useRef<HTMLDivElement>(null)
+  const [metricsInView, setMetricsInView] = useState(false)
+  const metricsSectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current
+    const observerOptions: IntersectionObserverInit = {
+      root: scrollContainer || null,
+      rootMargin: "0px 0px -40px 0px",
+      threshold: 0.08,
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target === projectsSectionRef.current) {
+            setProjectsInView(true)
+            observer.unobserve(entry.target)
+          } else if (entry.target === metricsSectionRef.current) {
+            setMetricsInView(true)
+            observer.unobserve(entry.target)
+          }
+        }
+      })
+    }, observerOptions)
+
+    if (projectsSectionRef.current) observer.observe(projectsSectionRef.current)
+    if (metricsSectionRef.current) observer.observe(metricsSectionRef.current)
+
+    return () => observer.disconnect()
+  }, [])
 
   // Filter students based on search query
   const filteredStudents = MOCK_STUDENTS.filter(student => 
@@ -192,7 +226,7 @@ export function SectionCards() {
       
       {/* Left Sidebar: Expanding Column */}
       <div 
-        className={`flex flex-col border-r border-border/50 bg-muted/20 transition-all duration-300 ease-in-out shrink-0 ${
+        className={`flex flex-col border-r border-border/50 bg-muted/20 dark:bg-[#0C0E12] transition-all duration-300 ease-in-out shrink-0 ${
           isSidebarExpanded ? "w-64" : "w-16"
         }`}
       >
@@ -234,26 +268,26 @@ export function SectionCards() {
                 <div 
                   className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-150 ease-out group-hover/student-btn:-translate-y-0.5 ${
                     isActive 
-                      ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(0,0,0,0.15)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(0,0,0,0.25)]" 
+                      ? "border-blue-600 dark:border-blue-500/60 bg-blue-600 dark:bg-blue-500/50 text-white ring-2 ring-blue-600 dark:ring-blue-500/50 ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(37,99,235,0.35)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(37,99,235,0.45)]" 
                       : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
                   }`}
                 >
                   <span className="text-sm font-semibold">{student.initials}</span>
 
                   {!isActive && student.isLive && !isSidebarExpanded && (
-                    <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 border border-background translate-x-0.5 translate-y-0.5"></span>
+                    <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-blue-600 dark:bg-[#60A5FA] border border-background translate-x-0.5 translate-y-0.5"></span>
                   )}
                 </div>
 
                 {isSidebarExpanded && (
                   <div className="flex flex-col items-start overflow-hidden">
-                    <span className={`truncate text-sm font-medium ${isActive ? "text-primary" : "text-foreground"}`}>
+                    <span className={`truncate text-sm font-medium ${isActive ? "text-blue-600 dark:text-blue-400" : "text-foreground"}`}>
                       {student.name}
                     </span>
                     <div className="flex items-center gap-1.5">
                       <span className="text-xs text-muted-foreground uppercase tracking-wider">{student.branch}</span>
                       {student.isLive && (
-                        <span className="size-1.5 rounded-full bg-emerald-500"></span>
+                        <span className="size-1.5 rounded-full bg-blue-600 dark:bg-[#60A5FA]"></span>
                       )}
                     </div>
                   </div>
@@ -265,7 +299,12 @@ export function SectionCards() {
       </div>
 
       {/* Main Dashboard Area */}
-      <div className="flex flex-1 flex-col overflow-hidden bg-background">
+      <div 
+        ref={dashboardAreaRef}
+        className="relative flex flex-1 flex-col overflow-hidden bg-background cursor-none [&_button]:cursor-none [&_a]:cursor-none [&_input]:cursor-none"
+      >
+        {/* HUD Crosshair & Coordinate Telemetry (Avionics Reticle) */}
+        <HudCrosshair containerRef={dashboardAreaRef} />
         
         {/* Scrollable Content Container */}
         <div 
@@ -280,6 +319,9 @@ export function SectionCards() {
             className="pointer-events-none sticky top-0 left-0 w-full h-[85vh] -mb-[85vh] -z-[5] bg-[radial-gradient(circle,rgba(0,0,0,0.25)_1px,transparent_1px)] dark:bg-[radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:48px_48px]"
             aria-hidden="true"
           />
+
+          {/* Background Insignia Crest Watermark (Fixed in viewport at top-left, 0.15 opacity) */}
+          <DashboardInsignia />
           
           {/* Sticky Backdrop Blur Header */}
           <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-border/50 bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)]">
@@ -293,13 +335,6 @@ export function SectionCards() {
             </div>
           </header>
 
-          {/* Instructor View Header */}
-          <div className="px-6 pt-6 animate-[dashboardFadeUp_500ms_cubic-bezier(0.16,1,0.3,1)_both]">
-            <h2 className="text-base font-black uppercase tracking-wide text-foreground">
-              Instructor View
-            </h2>
-          </div>
-
           {/* Massive Ghost Hero Section */}
           <div className="px-6 py-5 lg:px-8 lg:py-6 animate-[dashboardFadeUp_600ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:100ms]">
             <div className="flex flex-col">
@@ -308,14 +343,14 @@ export function SectionCards() {
               <div className="flex items-center gap-3 mb-4">
                 {activeSubject.isLive && (
                   <span className="relative flex size-3.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex size-3.5 rounded-full bg-emerald-500"></span>
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75 dark:bg-[#60A5FA]"></span>
+                    <span className="relative inline-flex size-3.5 rounded-full bg-blue-600 dark:bg-[#60A5FA]"></span>
                   </span>
                 )}
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   {activeSubject.isLive ? (
                     <>
-                      <span className="text-emerald-500">LIVE</span> Student Performance
+                      <span className="text-blue-600 dark:text-[#60A5FA]">LIVE</span> Student Performance
                     </>
                   ) : (
                     "Student Performance"
@@ -337,9 +372,11 @@ export function SectionCards() {
                       strokeDasharray="276.46"
                       strokeDashoffset={276.46 - (activeSubject.score / 100) * 276.46}
                       className={`transition-all duration-1000 ease-out ${
-                        activeSubject.score >= 90 ? "stroke-emerald-500" :
-                        activeSubject.score >= 75 ? "stroke-amber-500" : 
-                        "stroke-rose-500"
+                        activeSubject.score >= 90
+                          ? "stroke-blue-600 dark:stroke-[#60A5FA] [filter:drop-shadow(0_0_6px_rgba(37,99,235,0.4))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.65))]"
+                          : activeSubject.score >= 75
+                          ? "stroke-blue-600/70 dark:stroke-[#60A5FA]/70"
+                          : "stroke-blue-600/35 dark:stroke-[#60A5FA]/35"
                       }`}
                     />
                   </svg>
@@ -352,11 +389,7 @@ export function SectionCards() {
                   </div>
 
                   {/* Opaque Telemetry Score Badge with Tabular Monospace font */}
-                  <div className={`absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black text-white shadow-md tabular-nums font-mono ${
-                        activeSubject.score >= 90 ? "bg-emerald-500" :
-                        activeSubject.score >= 75 ? "bg-amber-500" : 
-                        "bg-rose-500"
-                  }`}>
+                  <div className="absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black bg-blue-600 dark:bg-[#60A5FA] text-white dark:text-zinc-950 shadow-md tabular-nums font-mono">
                     {activeSubject.score}
                   </div>
                 </div>
@@ -369,10 +402,7 @@ export function SectionCards() {
 
                   {/* Operational Telemetry Row */}
                   <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-2 text-sm">
-                    <div className="flex items-center gap-1.5 text-muted-foreground font-semibold">
-                      <BranchLogo branch={activeSubject.branch} className="size-4 shrink-0" />
-                      <span className="text-xs font-bold uppercase tracking-wider">{activeSubject.branch}</span>
-                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{activeSubject.branch}</span>
                     <span className="text-border">•</span>
                     <span className="text-xs text-muted-foreground font-medium">
                       Last Eval: <span className="font-mono text-foreground font-semibold">{activeSubject.lastEval}</span>
@@ -420,18 +450,12 @@ export function SectionCards() {
                         {/* Trend Badge: Positioned away towards bottom */}
                         <div className="mt-auto pt-2">
                           {card.id === "pending" ? (
-                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-blue-600/20 bg-blue-600/10 text-blue-600 dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
                               <MessageSquareText className="size-3" />
                               <span>Pending discussions</span>
                             </div>
                           ) : (
-                            <div
-                              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border ${
-                                card.trend === "increased"
-                                  ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                  : "border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                              }`}
-                            >
+                            <div className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap border border-blue-600/20 bg-blue-600/10 text-blue-600 dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
                               {card.trend === "increased" ? (
                                 <>
                                   <TrendingUp className="size-3" />
@@ -465,8 +489,8 @@ export function SectionCards() {
           <hr className="w-full border-t border-border/50" />
 
           {/* Projects & Scores Grid Section */}
-          <div className="p-8 lg:p-12">
-            <div className="mb-6">
+          <div ref={projectsSectionRef} className="p-8 lg:p-12">
+            <div className={`mb-6 ${projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both]" : "opacity-0"}`}>
               <h2 className="text-xl font-bold tracking-tight text-foreground">
                 Projects & Scores
               </h2>
@@ -475,7 +499,11 @@ export function SectionCards() {
             <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
               
               {/* Card 1: Current Project (Spans 2 columns) */}
-              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:120ms]"
+                  : "opacity-0"
+              }`}>
                 <div className="flex flex-col">
                   <h3 className="text-2xl font-bold tracking-tight text-foreground">Current Project</h3>
                   <p className="text-sm font-medium text-muted-foreground mt-0.5">Start Up Sequence Data</p>
@@ -486,7 +514,11 @@ export function SectionCards() {
               </Card>
               
               {/* Card 2: Repair Sequence */}
-              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:240ms]"
+                  : "opacity-0"
+              }`}>
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Repair Sequence</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -494,7 +526,11 @@ export function SectionCards() {
               </Card>
 
               {/* Card 3: Scenario 1 */}
-              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:360ms]"
+                  : "opacity-0"
+              }`}>
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 1</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -502,7 +538,11 @@ export function SectionCards() {
               </Card>
 
               {/* Card 4: Scenario 2 */}
-              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:480ms]"
+                  : "opacity-0"
+              }`}>
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 2</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -510,7 +550,11 @@ export function SectionCards() {
               </Card>
 
               {/* Card 5: Scenario 3 */}
-              <Card className="flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:600ms]"
+                  : "opacity-0"
+              }`}>
                 <h3 className="text-lg font-bold tracking-tight text-foreground">Scenario 3</h3>
                 <div className="mt-6 flex flex-1 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/10 text-xs text-muted-foreground/70">
                   Data loads here
@@ -518,7 +562,11 @@ export function SectionCards() {
               </Card>
 
               {/* Card 6: Milestone Project (Spans 2 columns) */}
-              <Card className="flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none">
+              <Card className={`group/interactive-card cursor-pointer flex min-h-48 flex-col p-6 @xl/main:col-span-2 bg-slate-200/50 dark:bg-black/50 backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border-0 ring-0 shadow-none hover:bg-slate-200/75 dark:hover:bg-black/75 transition-colors ${
+                projectsInView
+                  ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:720ms]"
+                  : "opacity-0"
+              }`}>
                 <div className="flex flex-col">
                   <h3 className="text-2xl font-bold tracking-tight text-foreground">Milestone Project</h3>
                   <p className="text-sm font-medium text-muted-foreground mt-0.5">Competency Test 1</p>
@@ -535,8 +583,8 @@ export function SectionCards() {
           <hr className="w-full border-t border-border/50" />
 
           {/* Metrics Section */}
-          <div className="p-8 lg:p-12">
-            <div className="mb-6">
+          <div ref={metricsSectionRef} className="p-8 lg:p-12">
+            <div className={`mb-6 ${metricsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both]" : "opacity-0"}`}>
               <h2 className="text-xl font-bold tracking-tight text-foreground">
                 Metrics
               </h2>
