@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { PageTransitionVeil } from "@/components/page-transition-veil"
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <SidebarProvider
+      defaultOpen={false}
       className="h-svh max-h-svh overflow-hidden"
       style={
         {
@@ -17,6 +19,7 @@ export default function DashboardLayout({
         } as React.CSSProperties
       }
     >
+      <PageTransitionVeil />
       <AppSidebar variant="inset" />
       <SidebarInset className="flex flex-col h-[calc(100svh-1rem)] max-h-[calc(100svh-1rem)] overflow-hidden bg-gradient-to-b from-[#587589] to-[#dff3eb] dark:from-[#0c151d] dark:to-[#152431] [transform:translateZ(0)]">
         <SiteHeader />

@@ -403,7 +403,7 @@ export function SectionCards() {
   const [activeStudentId, setActiveStudentId] = useState(1)
   const [sparklineHoverIdx, setSparklineHoverIdx] = useState<number | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [projectsInView, setProjectsInView] = useState(false)
+  const [projectsInView, setProjectsInView] = useState(true)
   const projectsSectionRef = useRef<HTMLDivElement>(null)
 
   // Expanding Card Modal State
@@ -722,7 +722,7 @@ export function SectionCards() {
           </header>
 
           {/* Massive Ghost Hero Section */}
-          <div className="px-6 py-5 lg:px-8 lg:py-6 animate-[dashboardFadeUp_600ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:100ms]">
+          <div className="px-6 py-5 lg:px-8 lg:py-6 animate-[dashboardFadeUp_600ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:200ms]">
             <div className="flex flex-col">
               
               {/* Top Row: Live Indicator & Title Hierarchy */}
@@ -1171,7 +1171,7 @@ export function SectionCards() {
                 return (
                   <div
                     className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out @xl/main:col-span-2 ${
-                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:120ms]" : "opacity-0"
+                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:220ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
@@ -1317,7 +1317,7 @@ export function SectionCards() {
                 return (
                   <div
                     className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
-                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:240ms]" : "opacity-0"
+                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:340ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
@@ -1424,7 +1424,7 @@ export function SectionCards() {
                 return (
                   <div
                     className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
-                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:360ms]" : "opacity-0"
+                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:440ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
@@ -1575,7 +1575,7 @@ export function SectionCards() {
                 return (
                   <div
                     className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
-                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:480ms]" : "opacity-0"
+                      projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:540ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
