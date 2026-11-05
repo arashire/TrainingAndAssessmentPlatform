@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { usePathname } from "next/navigation"
 import * as THREE from "three"
 import { useTheme } from "next-themes"
 
@@ -175,6 +176,7 @@ export function TopographicTerrain({ scrollContainerRef }: TopographicTerrainPro
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasContainerRef = useRef<HTMLDivElement>(null)
   const { resolvedTheme } = useTheme()
+  const pathname = usePathname()
 
   useEffect(() => {
     const container = containerRef.current
@@ -296,8 +298,13 @@ export function TopographicTerrain({ scrollContainerRef }: TopographicTerrainPro
     scene.add(terrainGroup)
 
     const isDark = resolvedTheme === "dark"
+    const isNavy = pathname?.startsWith("/dashboard/navy")
+    const isArmy = pathname?.startsWith("/dashboard/army")
+    const isMarines = pathname?.startsWith("/dashboard/marines")
     const baseColor = isDark ? 0xffffff : 0x0f172a
-    const crestColor = isDark ? 0xe0f2fe : 0x0f172a // Slight luminous cyan-white crest in dark mode
+    const crestColor = isDark 
+      ? (isNavy ? 0xfef08a : isArmy ? 0xfde68a : isMarines ? 0xfecdd3 : 0xe0f2fe) 
+      : (isNavy ? 0xfacc15 : isArmy ? 0xd97706 : isMarines ? 0xe11d48 : 0x0f172a)
 
     // 3-Tier Materials matching the glowing blueprint aesthetic of reference (halved to 50% opacity)
     const regularMat = new THREE.LineBasicMaterial({

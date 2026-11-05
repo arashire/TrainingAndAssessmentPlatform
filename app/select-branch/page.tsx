@@ -81,10 +81,10 @@ const BRANCHES: BranchConfig[] = [
     bgGradient: "linear-gradient(180deg, #091724 0%, #0d2235 50%, #060f17 100%)",
     accentGlow: "radial-gradient(circle 850px at 50% 50%, rgba(56, 189, 248, 0.25) 0%, transparent 70%)",
     insignia: NavyLogo,
-    primaryUrl: "#",
+    primaryUrl: "/dashboard/navy",
     primaryLabel: "U.S. Navy",
     primaryDescription: "Naval Aviation Enterprise & Carrier Trap Quals",
-    status: "queued",
+    status: "active",
   },
   {
     id: "army",
@@ -97,10 +97,10 @@ const BRANCHES: BranchConfig[] = [
     bgGradient: "linear-gradient(180deg, #18150e 0%, #241e12 50%, #0f0d08 100%)",
     accentGlow: "radial-gradient(circle 850px at 50% 50%, rgba(245, 158, 11, 0.25) 0%, transparent 70%)",
     insignia: ArmyLogo,
-    primaryUrl: "#",
+    primaryUrl: "/dashboard/army",
     primaryLabel: "U.S. Army",
     primaryDescription: "Army Aviation Center of Excellence & Flight Syllabus",
-    status: "queued",
+    status: "active",
   },
   {
     id: "marines",
@@ -113,10 +113,10 @@ const BRANCHES: BranchConfig[] = [
     bgGradient: "linear-gradient(180deg, #1c1012 0%, #281418 50%, #120a0b 100%)",
     accentGlow: "radial-gradient(circle 850px at 50% 50%, rgba(239, 68, 68, 0.25) 0%, transparent 70%)",
     insignia: MarinesLogo,
-    primaryUrl: "#",
+    primaryUrl: "/dashboard/marines",
     primaryLabel: "U.S. Marines",
     primaryDescription: "Marine Corps Aviation Command & Close Air Support",
-    status: "queued",
+    status: "active",
   },
 ]
 

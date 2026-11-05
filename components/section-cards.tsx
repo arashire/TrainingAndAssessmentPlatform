@@ -614,7 +614,7 @@ export function SectionCards() {
       {/* Left Sidebar: Expanding Column */}
       <div 
         className={`flex flex-col border-r border-black/10 dark:border-border/50 bg-white/20 dark:bg-[#0C0E12] backdrop-blur-sm transition-all duration-300 ease-in-out shrink-0 ${
-          isSidebarExpanded ? "w-64" : "w-16"
+          isSidebarExpanded ? "w-72" : "w-16"
         }`}
       >
         {/* Sidebar Header / Search Toggle */}
@@ -667,7 +667,7 @@ export function SectionCards() {
                 </div>
 
                 {isSidebarExpanded && (
-                  <div className="flex flex-col items-start overflow-hidden">
+                  <div className="flex flex-col items-start overflow-hidden min-w-0 flex-1">
                     <span className={`truncate text-sm font-medium ${isActive ? "text-[#163144] font-bold dark:text-blue-400" : "text-[#163144] dark:text-foreground"}`}>
                       {student.name}
                     </span>

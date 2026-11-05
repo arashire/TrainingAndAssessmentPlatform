@@ -1,10 +1,14 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { getBranchFromPath } from "@/lib/branch-config"
 
 export function SiteHeader() {
+  const pathname = usePathname()
+  const branch = getBranchFromPath(pathname)
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -18,7 +22,7 @@ export function SiteHeader() {
         <div className="flex items-center">
           <SidebarTrigger className="h-8 w-16 rounded-md text-white transition-all duration-200 hover:bg-transparent hover:text-white/80 hover:brightness-125 dark:text-white dark:hover:bg-transparent" />
           <h1 className="pl-6 text-base font-bold tracking-wide flex items-center gap-2 text-white">
-            <span>DASHBOARD</span>
+            <span>{branch.shortName}</span>
             <span className="text-white/60 font-mono font-normal">|</span>
             <span className="font-light">INSTRUCTOR VIEW</span>
           </h1>

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
@@ -15,7 +16,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon } from "lucide-react"
+import { getBranchFromPath } from "@/lib/branch-config"
+import { 
+  LayoutDashboardIcon, 
+  ListIcon, 
+  ChartBarIcon, 
+  FolderIcon, 
+  UsersIcon, 
+  CameraIcon, 
+  FileTextIcon, 
+  Settings2Icon, 
+  CircleHelpIcon, 
+  SearchIcon, 
+  DatabaseIcon, 
+  FileChartColumnIcon, 
+  FileIcon,
+  LayoutGridIcon
+} from "lucide-react"
 
 const data = {
   user: {
@@ -176,25 +193,52 @@ const data = {
   ],
 }
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+  const branch = getBranchFromPath(pathname)
+  const BranchIcon = branch.Logo
+
+  const navMainWithBranch = React.useMemo(() => {
+    return data.navMain.map((item) => {
+      if (item.title === "Dashboard") {
+        return {
+          ...item,
+          url: branch.dashboardUrl,
+        }
+      }
+      return item
+    })
+  }, [branch.dashboardUrl])
+
+  const navSecondaryWithBranch = React.useMemo(() => {
+    return [
+      ...data.navSecondary,
+      {
+        title: "Switch Branch",
+        url: "/select-branch",
+        icon: <LayoutGridIcon />,
+      },
+    ]
+  }, [])
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              href="#"
+              href={branch.dashboardUrl}
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
-              <CommandIcon className="size-6!" />
-              <span className="text-lg font-bold tracking-tight">Acme Inc.</span>
+              <BranchIcon className={`size-6! shrink-0 ${branch.accentTextClass}`} />
+              <span className="text-lg font-bold tracking-tight">{branch.name}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navMainWithBranch} />
         <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={navSecondaryWithBranch} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
