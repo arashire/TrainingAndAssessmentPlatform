@@ -213,7 +213,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return [
       ...data.navSecondary,
       {
-        title: "Switch Branch",
+        title: "Switch Division",
         url: "/select-branch",
         icon: <LayoutGridIcon />,
       },

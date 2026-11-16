@@ -43,32 +43,18 @@ export interface DetailedProject {
 }
 
 const ALL_FLIGHT_PROJECTS: Omit<DetailedProject, "status">[] = [
-  { id: "p1", code: "INST-101", title: "Basic Instrument Solo", category: "Instruments", dateStarted: "Oct 12, 2026", dateCompleted: "Oct 14, 2026", instructor: "CDR Miller", durationHours: 2.5, notes: "Exceptional glide-slope stabilization on ILS approach." },
-  { id: "p2", code: "TAC-204", title: "High-G Combat Maneuvering", category: "Tactical", dateStarted: "Oct 16, 2026", dateCompleted: "Oct 18, 2026", instructor: "LT Vance", durationHours: 3.2, notes: "Maintained target aspect within 15° cone during high-G turns." },
-  { id: "p3", code: "NVG-301", title: "Night Vision Goggle Approach", category: "Instruments", dateStarted: "Oct 20, 2026", dateCompleted: "Oct 22, 2026", instructor: "MAJ Sterling", durationHours: 2.8, notes: "Solid scan pattern; clean recovery from low-light optical illusion." },
-  { id: "p4", code: "FORM-102", title: "Four-Ship Tactical Formation", category: "Formation", dateStarted: "Oct 24, 2026", dateCompleted: "Oct 26, 2026", instructor: "CDR Miller", durationHours: 3.5, notes: "Precise wingtip spacing maintained through combat spread." },
-  { id: "p5", code: "BFM-401", title: "Basic Fighter Maneuvers (1v1)", category: "Tactical", dateStarted: "Oct 28, 2026", dateCompleted: "Oct 30, 2026", instructor: "LT Vance", durationHours: 2.0, notes: "Offensive perch entry timed perfectly; simulated gun kill verified." },
-  { id: "p6", code: "IFR-202", title: "Low-Ceiling Instrument Approach", category: "Instruments", dateStarted: "Nov 01, 2026", dateCompleted: "Nov 03, 2026", instructor: "MAJ Sterling", durationHours: 2.4, notes: "Crossed decision height with runway centerline dead-stick aligned." },
-  { id: "p7", code: "EMERG-105", title: "Engine Flameout & Restart", category: "Emergency", dateStarted: "Nov 05, 2026", dateCompleted: "Nov 06, 2026", instructor: "CDR Miller", durationHours: 1.8, notes: "Executed textbook air-start relight procedure in 38 seconds." },
-  { id: "p8", code: "DECK-201", title: "Day Carrier Trap Recovery", category: "Carrier Ops", dateStarted: "Nov 08, 2026", dateCompleted: "Nov 10, 2026", instructor: "LT Vance", durationHours: 2.6, notes: "Initial attempt boltered due to high meatball; wire 3 snagged on second pass." },
-  { id: "p9", code: "NAV-302", title: "Low-Level Terrain Masking", category: "Solo Flight", dateStarted: "Nov 11, 2026", instructor: "MAJ Sterling", durationHours: 3.0, notes: "Underway in Red Flag sector; radar altitude hold active.", progress: 85 },
-  { id: "p10", code: "RADAR-203", title: "BVR Radar Intercept & Sort", category: "Avionics", dateStarted: "Nov 11, 2026", instructor: "CDR Miller", durationHours: 2.7, notes: "Track-while-scan active on 4 airborne targets; lock established.", progress: 62 },
-  { id: "p11", code: "REFUEL-101", title: "Day Airborne Probe Refueling", category: "Tactical", dateStarted: "Nov 12, 2026", instructor: "LT Vance", durationHours: 2.1, notes: "KC-135 link-up in progress; stabilized on port drogue basket.", progress: 48 },
-  { id: "p12", code: "EW-305", title: "Electronic Jamming & Chaff Corridor", category: "Avionics", dateStarted: "Nov 12, 2026", instructor: "MAJ Sterling", durationHours: 1.9, notes: "Countermeasure dispense timed to surface-to-air radar ping.", progress: 30 },
-  { id: "p13", code: "DECK-302", title: "Night Carrier Trap 3-Wire", category: "Carrier Ops", dateStarted: "Nov 15, 2026", instructor: "CDR Miller", durationHours: 2.5, notes: "Scheduled: LSO night landing qualification pending tanker clearance." },
-  { id: "p14", code: "SOLO-401", title: "Final Capstone Solo Evaluation", category: "Solo Flight", dateStarted: "Nov 18, 2026", instructor: "MAJ Sterling", durationHours: 4.0, notes: "Scheduled: Final phase graduation flight check before deployment." },
-  { id: "p15", code: "AERO-101", title: "Aerobatic Spin Recovery", category: "Solo Flight", dateStarted: "Oct 08, 2026", dateCompleted: "Oct 10, 2026", instructor: "CDR Miller", durationHours: 2.2, notes: "Inverted flat spin recovery initiated at 14,000 ft MSL." },
-  { id: "p16", code: "GUNS-202", title: "Air-to-Ground Strafe Runs", category: "Tactical", dateStarted: "Oct 14, 2026", dateCompleted: "Oct 15, 2026", instructor: "LT Vance", durationHours: 3.0, notes: "Target hits verified at 94% on 20mm Vulcan dispersion." },
-  { id: "p17", code: "NVG-402", title: "Night Formation Low-Altitude", category: "Instruments", dateStarted: "Oct 18, 2026", dateCompleted: "Oct 20, 2026", instructor: "MAJ Sterling", durationHours: 3.4, notes: "NVG tactical formation maintained at 500 ft AGL." },
-  { id: "p18", code: "CAS-301", title: "Close Air Support 9-Line", category: "Tactical", dateStarted: "Oct 22, 2026", dateCompleted: "Oct 24, 2026", instructor: "CDR Miller", durationHours: 2.8, notes: "JTAC coordination authenticated under 45 seconds." },
-  { id: "p19", code: "COMM-102", title: "Secure Data-Link Comms Link", category: "Avionics", dateStarted: "Oct 26, 2026", dateCompleted: "Oct 27, 2026", instructor: "LT Vance", durationHours: 1.6, notes: "Link-16 situational awareness network verified operational." },
-  { id: "p20", code: "DEF-205", title: "Missile Defense Evade Maneuvers", category: "Tactical", dateStarted: "Oct 30, 2026", dateCompleted: "Nov 02, 2026", instructor: "MAJ Sterling", durationHours: 3.1, notes: "Executed split-S break turn beating simulated SA-15 missile." },
-  { id: "p21", code: "SIM-501", title: "Cockpit Decompression Emergency", category: "Emergency", dateStarted: "Nov 03, 2026", dateCompleted: "Nov 04, 2026", instructor: "CDR Miller", durationHours: 1.5, notes: "Rapid descent to 10,000 ft in 1 min 22 sec; oxygen mask donned." },
-  { id: "p22", code: "RADAR-304", title: "AESA Radar Modes Qualification", category: "Avionics", dateStarted: "Nov 06, 2026", dateCompleted: "Nov 08, 2026", instructor: "LT Vance", durationHours: 2.9, notes: "Target track maintained despite heavy active jamming." },
-  { id: "p23", code: "DECK-401", title: "Heavy Sea-State Carrier Trap", category: "Carrier Ops", dateStarted: "Nov 09, 2026", dateCompleted: "Nov 11, 2026", instructor: "CDR Miller", durationHours: 3.3, notes: "Pitching flight deck approach handled with precision." },
-  { id: "p24", code: "CAP-201", title: "Combat Air Patrol Orbit", category: "Tactical", dateStarted: "Nov 12, 2026", instructor: "MAJ Sterling", durationHours: 4.2, notes: "Station-keeping maintained on primary ingress corridor.", progress: 50 },
-  { id: "p25", code: "TAC-502", title: "Multi-Bogey Intercept Sortie", category: "Tactical", dateStarted: "Nov 13, 2026", instructor: "LT Vance", durationHours: 3.6, notes: "Coordinated intercept with AWACS vectoring.", progress: 20 },
-  { id: "p26", code: "GRAD-601", title: "Final Fleet Deployment Readiness", category: "Solo Flight", dateStarted: "Nov 20, 2026", instructor: "CDR Miller", durationHours: 5.0, notes: "Comprehensive combat mission profile qualification." },
+  { id: "p1", code: "CBRN-101", title: "Joint Biological Point Detection (JBPDS)", category: "Tactical", dateStarted: "Oct 12, 2026", dateCompleted: "Oct 14, 2026", instructor: "CMSgt Reynolds", durationHours: 2.8, notes: "Aerosol collector calibrated; bio-agent sample authenticated within 4 mins." },
+  { id: "p2", code: "DECON-201", title: "Personnel Contamination Mitigation Line", category: "Carrier Ops", dateStarted: "Oct 16, 2026", dateCompleted: "Oct 18, 2026", instructor: "MSgt Vance", durationHours: 2.4, notes: "Processed 24 personnel through 5-station wet decon with zero cross-contamination." },
+  { id: "p3", code: "IEMP-302", title: "IEMP 10-2 Shelter-in-Place Execution", category: "Emergency", dateStarted: "Oct 20, 2026", dateCompleted: "Oct 22, 2026", instructor: "TSgt Miller", durationHours: 3.1, notes: "Installation-wide warning siren & Giant Voice synchronization verified." },
+  { id: "p4", code: "PLUME-401", title: "ALOHA Atmospheric Plume Modeling", category: "Avionics", dateStarted: "Oct 24, 2026", dateCompleted: "Oct 26, 2026", instructor: "Capt Sterling", durationHours: 3.5, notes: "Downwind hazard sector mapped within 2% variance of weather balloon data." },
+  { id: "p5", code: "RAD-205", title: "AN/VDR-2 Radiological Survey Grid", category: "Instruments", dateStarted: "Oct 28, 2026", dateCompleted: "Oct 30, 2026", instructor: "MSgt Vance", durationHours: 2.9, notes: "Beta/gamma dose rate contours plotted across simulated flightline sector." },
+  { id: "p6", code: "EOC-104", title: "Emergency Operations Center ESF-5 Activation", category: "Formation", dateStarted: "Nov 01, 2026", dateCompleted: "Nov 03, 2026", instructor: "TSgt Miller", durationHours: 3.0, notes: "Crisis Action Team handoff completed; CBRN Control Center fully manned in 11 mins." },
+  { id: "p7", code: "HAZ-202", title: "Level-A Chemical Vapor Protective Entry", category: "Emergency", dateStarted: "Nov 05, 2026", dateCompleted: "Nov 06, 2026", instructor: "CMSgt Reynolds", durationHours: 2.1, notes: "SCBA air consumption within threshold during 35-minute hot zone recon." },
+  { id: "p8", code: "DRF-303", title: "Disaster Response Force Joint Exercise", category: "Formation", dateStarted: "Oct 22, 2026", dateCompleted: "Oct 24, 2026", instructor: "MSgt Vance", durationHours: 3.8, notes: "Coordinated perimeter cordons with Fire, EOD, and Security Forces." },
+  { id: "p9", code: "CHEM-201", title: "JCAD M4A1 Chemical Agent Detection", category: "Tactical", dateStarted: "Nov 11, 2026", instructor: "TSgt Miller", durationHours: 2.4, notes: "Blister and nerve simulant vapor thresholds logged cleanly.", progress: 85 },
+  { id: "p10", code: "MOPP-402", title: "MOPP-4 Extended Endurance Ops", category: "Tactical", dateStarted: "Nov 11, 2026", instructor: "Capt Sterling", durationHours: 4.0, notes: "Sustained C2 reporting and mask seal integrity under heat stress.", progress: 62 },
+  { id: "p11", code: "GIS-301", title: "ArcGIS Contamination Overlay Sync", category: "Avionics", dateStarted: "Nov 12, 2026", instructor: "MSgt Vance", durationHours: 2.6, notes: "Real-time hazard polygons pushed to Wing Commander tactical display.", progress: 48 },
+  { id: "p12", code: "CAP-701", title: "AFCEC Silver Flag EM Capstone", category: "Solo Flight", dateStarted: "Nov 18, 2026", instructor: "CMSgt Reynolds", durationHours: 5.0, notes: "Scheduled: Full-spectrum bare-base CBRN recovery & consequence management.", },
 ]
 
 function getDetailedProjectsForStudent(student: Student): DetailedProject[] {
@@ -151,28 +137,28 @@ interface Student {
 const MOCK_STUDENTS: Student[] = [
   { 
     id: 1, 
-    initials: "JD", 
-    name: "Jane Doe", 
-    branch: "U.S. Air Force", 
+    initials: "TV", 
+    name: "MSgt Tyler Vance", 
+    branch: "AFCEC // CXR", 
     isLive: true, 
-    score: 94, 
-    milestone: "Phase II: Instrument Solo",
-    lastEval: "14 mins ago",
-    totalProjects: 14, 
-    passedProjects: 13,
-    endedProjects: 8,
+    score: 96, 
+    milestone: "Phase III: EOC CBRN Cell Director",
+    lastEval: "8 mins ago",
+    totalProjects: 16, 
+    passedProjects: 15,
+    endedProjects: 9,
     runningProjects: 4,
-    pendingProjects: 2,
-    recentScores: [82, 86, 89, 91, 94],
+    pendingProjects: 3,
+    recentScores: [88, 91, 93, 95, 96],
     activeSorties: [
-      { code: "SIM-01", progress: 85, name: "Instrument Solo", live: true },
-      { code: "TAC-04", progress: 62, name: "Combat Maneuvers" },
-      { code: "IFR-02", progress: 38, name: "Night Approach" },
+      { code: "CBRN-01", progress: 92, name: "JBPDS Point Detection", live: true },
+      { code: "EOC-04", progress: 68, name: "DRF Command Cell" },
+      { code: "DECON-02", progress: 42, name: "Contamination Line" },
     ],
     pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Flight Physical Cl. 1 Cleared" },
-      { name: "SIM BRIEF", done: true, detail: "Weather & Nav Briefing Signed" },
-      { name: "FLT AUTH", done: false, detail: "Squadron CO Sign-Off Pending" },
+      { name: "HAZMAT CLEAR", done: true, detail: "Level-A Chemical PPE Certified" },
+      { name: "IEMP BRIEF", done: true, detail: "IEMP 10-2 Directive Signed" },
+      { name: "EOC AUTH", done: false, detail: "Wing Commander Sign-Off Pending" },
     ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
@@ -181,57 +167,27 @@ const MOCK_STUDENTS: Student[] = [
   },
   { 
     id: 2, 
-    initials: "MR", 
-    name: "Mark Reeds", 
-    branch: "U.S. Air Force", 
-    isLive: false, 
-    score: 78, 
-    milestone: "Tactical Navigation Qual",
-    lastEval: "2 hrs ago",
-    totalProjects: 8, 
-    passedProjects: 6,
-    endedProjects: 5,
-    runningProjects: 2,
-    pendingProjects: 1,
-    recentScores: [72, 75, 74, 80, 78],
-    activeSorties: [
-      { code: "NAV-01", progress: 70, name: "Terrain Navigation" },
-      { code: "FORM-02", progress: 35, name: "Formation Flight" },
-    ],
-    pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Medical Readiness Validated" },
-      { name: "SIM BRIEF", done: false, detail: "Pre-Sortie Brief Incomplete" },
-      { name: "FLT AUTH", done: false, detail: "Instructor Authorization Hold" },
-    ],
-    projectTrend: "decreased" as const,
-    endedTrend: "increased" as const,
-    runningTrend: "decreased" as const,
-    pendingTrend: "decreased" as const,
-  },
-  { 
-    id: 3, 
-    initials: "AS", 
-    name: "Alex Smith", 
-    branch: "U.S. Air Force", 
+    initials: "MC", 
+    name: "TSgt Marcus Cole", 
+    branch: "AFCEC // CXR", 
     isLive: true, 
-    score: 88, 
-    milestone: "Formations & Intercept",
-    lastEval: "45 mins ago",
-    totalProjects: 19, 
-    passedProjects: 16,
-    endedProjects: 11,
-    runningProjects: 5,
+    score: 98, 
+    milestone: "Contamination Avoidance Lead",
+    lastEval: "22 mins ago",
+    totalProjects: 24, 
+    passedProjects: 23,
+    endedProjects: 15,
+    runningProjects: 6,
     pendingProjects: 3,
-    recentScores: [80, 83, 85, 84, 88],
+    recentScores: [92, 94, 95, 97, 98],
     activeSorties: [
-      { code: "INT-03", progress: 90, name: "High-Alt Intercept", live: true },
-      { code: "TAC-01", progress: 55, name: "BVR Radar Lock" },
-      { code: "NIGHT-02", progress: 20, name: "Low-Light Navigation" },
+      { code: "PLUME-01", progress: 88, name: "ALOHA Plume Dispersion", live: true },
+      { code: "RAD-03", progress: 60, name: "Radiological Grid Survey" },
     ],
     pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "G-Tolerance Clearance Active" },
-      { name: "SIM BRIEF", done: true, detail: "Intercept Coordinates Approved" },
-      { name: "FLT AUTH", done: false, detail: "Air Corridor Clearance Queued" },
+      { name: "HAZMAT CLEAR", done: true, detail: "Annual Fit Test Validated" },
+      { name: "IEMP BRIEF", done: true, detail: "Downwind Sector Briefed" },
+      { name: "EOC AUTH", done: true, detail: "EOC Director Clearance Active" },
     ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
@@ -239,29 +195,57 @@ const MOCK_STUDENTS: Student[] = [
     pendingTrend: "decreased" as const,
   },
   { 
-    id: 4, 
-    initials: "TC", 
-    name: "Tom Cruise", 
-    branch: "U.S. Air Force", 
-    isLive: true, 
-    score: 99, 
-    milestone: "Carrier Deck Landing",
+    id: 3, 
+    initials: "MT", 
+    name: "SSgt Maya Torres", 
+    branch: "AFCEC // CXR", 
+    isLive: false, 
+    score: 86, 
+    milestone: "Automated Chemical Detection Qual",
     lastEval: "1 hr ago",
-    totalProjects: 26, 
-    passedProjects: 26,
-    endedProjects: 17,
-    runningProjects: 6,
-    pendingProjects: 3,
-    recentScores: [94, 96, 97, 98, 99],
+    totalProjects: 11, 
+    passedProjects: 9,
+    endedProjects: 7,
+    runningProjects: 3,
+    pendingProjects: 1,
+    recentScores: [78, 81, 84, 83, 86],
     activeSorties: [
-      { code: "DECK-01", progress: 95, name: "Carrier Trap 3-Wire", live: true },
-      { code: "REFUEL", progress: 78, name: "Night Basket Hook" },
-      { code: "DOGFIGHT", progress: 60, name: "BFM Tactical Engagement" },
+      { code: "CHEM-02", progress: 74, name: "JCAD Vapor Thresholds" },
+      { code: "MOPP-03", progress: 45, name: "MOPP-4 Endurance Ops" },
     ],
     pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Fighter Weapons Physical Cleared" },
-      { name: "SIM BRIEF", done: true, detail: "Flight Lead Briefing Signed Off" },
-      { name: "FLT AUTH", done: true, detail: "All Clear - Flight Ready" },
+      { name: "HAZMAT CLEAR", done: true, detail: "SCBA Pressure Certified" },
+      { name: "IEMP BRIEF", done: true, detail: "Hot Zone Entry Plan Signed" },
+      { name: "EOC AUTH", done: false, detail: "Standby Sector Hold" },
+    ],
+    projectTrend: "decreased" as const,
+    endedTrend: "increased" as const,
+    runningTrend: "decreased" as const,
+    pendingTrend: "decreased" as const,
+  },
+  { 
+    id: 4, 
+    initials: "EC", 
+    name: "SrA Elena Cruz", 
+    branch: "AFCEC // CXR", 
+    isLive: true, 
+    score: 93, 
+    milestone: "Decontamination Line NCOIC",
+    lastEval: "35 mins ago",
+    totalProjects: 18, 
+    passedProjects: 17,
+    endedProjects: 11,
+    runningProjects: 5,
+    pendingProjects: 2,
+    recentScores: [85, 87, 89, 91, 93],
+    activeSorties: [
+      { code: "DECON-02", progress: 82, name: "5-Station Wet Decon", live: true },
+      { code: "DRF-04", progress: 50, name: "Perimeter Cordon Ops" },
+    ],
+    pendingChecklist: [
+      { name: "HAZMAT CLEAR", done: true, detail: "Bio-Sampling Kit Verified" },
+      { name: "IEMP BRIEF", done: true, detail: "Decon Runoff Plan Approved" },
+      { name: "EOC AUTH", done: false, detail: "Safety Officer Checklist Hold" },
     ],
     projectTrend: "increased" as const,
     endedTrend: "increased" as const,
@@ -270,27 +254,27 @@ const MOCK_STUDENTS: Student[] = [
   },
   { 
     id: 5, 
-    initials: "SJ", 
-    name: "Sarah Jones", 
-    branch: "U.S. Air Force", 
+    initials: "JM", 
+    name: "SSgt Jackson Miller", 
+    branch: "AFCEC // CXR", 
     isLive: false, 
-    score: 62, 
-    milestone: "Basic Avionics & Radar",
+    score: 79, 
+    milestone: "Biohazard Plume Modeling Lead",
     lastEval: "3 hrs ago",
-    totalProjects: 6, 
-    passedProjects: 3,
-    endedProjects: 3,
+    totalProjects: 9, 
+    passedProjects: 7,
+    endedProjects: 6,
     runningProjects: 2,
     pendingProjects: 1,
-    recentScores: [58, 65, 60, 59, 62],
+    recentScores: [74, 76, 75, 81, 79],
     activeSorties: [
-      { code: "RADAR-01", progress: 45, name: "APG-83 Calibration" },
-      { code: "AVIONICS", progress: 25, name: "HUD Mode Diagnostics" },
+      { code: "GIS-01", progress: 65, name: "Contamination GIS Overlay" },
+      { code: "RAD-02", progress: 30, name: "Gamma Dose Rate Mapping" },
     ],
     pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Annual Flight Exam Valid" },
-      { name: "SIM BRIEF", done: false, detail: "Awaiting Radar Specialist" },
-      { name: "FLT AUTH", done: false, detail: "Remediation Review Scheduled" },
+      { name: "HAZMAT CLEAR", done: true, detail: "Dosimeter Calibration Cleared" },
+      { name: "IEMP BRIEF", done: false, detail: "Post-Exercise Debrief Queued" },
+      { name: "EOC AUTH", done: false, detail: "Authorization On Hold" },
     ],
     projectTrend: "decreased" as const,
     endedTrend: "decreased" as const,
@@ -299,64 +283,34 @@ const MOCK_STUDENTS: Student[] = [
   },
   { 
     id: 6, 
-    initials: "RJ", 
-    name: "Rick James", 
-    branch: "U.S. Air Force", 
+    initials: "SJ", 
+    name: "A1C Sarah Jenkins", 
+    branch: "AFCEC // CXR", 
     isLive: true, 
-    score: 85, 
-    milestone: "Close Air Support Check",
-    lastEval: "Yesterday",
-    totalProjects: 12, 
-    passedProjects: 10,
-    endedProjects: 7,
-    runningProjects: 3,
-    pendingProjects: 2,
-    recentScores: [79, 81, 80, 86, 85],
-    activeSorties: [
-      { code: "CAS-02", progress: 80, name: "Close Air Support", live: true },
-      { code: "GUNNERY", progress: 50, name: "Strafe Run & Target" },
-      { code: "RECON", progress: 30, name: "Forward Observer Comms" },
-    ],
-    pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Air Force Aviation Med Verified" },
-      { name: "SIM BRIEF", done: true, detail: "JTAC Protocol Brief Completed" },
-      { name: "FLT AUTH", done: false, detail: "Range Safety Approval Pending" },
-    ],
-    projectTrend: "increased" as const,
-    endedTrend: "increased" as const,
-    runningTrend: "decreased" as const,
-    pendingTrend: "increased" as const,
-  },
-  { 
-    id: 7, 
-    initials: "EP", 
-    name: "Ellen Page", 
-    branch: "U.S. Air Force", 
-    isLive: false, 
     score: 91, 
-    milestone: "Night Approach Cert",
-    lastEval: "5 hrs ago",
+    milestone: "Airfield Radiation Survey Qual",
+    lastEval: "50 mins ago",
     totalProjects: 15, 
     passedProjects: 14,
     endedProjects: 9,
     runningProjects: 4,
     pendingProjects: 2,
-    recentScores: [85, 87, 88, 92, 91],
+    recentScores: [82, 85, 88, 90, 91],
     activeSorties: [
-      { code: "NIGHT-01", progress: 75, name: "NVG Approach Pattern" },
-      { code: "INST-04", progress: 45, name: "Blind Instrument Descent" },
+      { code: "SURVEY-01", progress: 95, name: "Flightline Alpha/Beta Sweep", live: true },
+      { code: "EOC-02", progress: 52, name: "Shelter Warning Sync" },
     ],
     pendingChecklist: [
-      { name: "MED CLEAR", done: true, detail: "Night Vision Physical Passed" },
-      { name: "SIM BRIEF", done: true, detail: "Approach Deck Plan Filed" },
-      { name: "FLT AUTH", done: false, detail: "LSO Sign-Off Pending" },
+      { name: "HAZMAT CLEAR", done: true, detail: "Medical Surveillance Current" },
+      { name: "IEMP BRIEF", done: true, detail: "Runway Sector Map Filed" },
+      { name: "EOC AUTH", done: false, detail: "Flight Chief Sign-Off Queued" },
     ],
-    projectTrend: "decreased" as const,
+    projectTrend: "increased" as const,
     endedTrend: "increased" as const,
-    runningTrend: "decreased" as const,
+    runningTrend: "increased" as const,
     pendingTrend: "decreased" as const,
   },
-];
+]
 
 // Generates smooth cubic bezier spline for historical sparkline (Card 2)
 function generateSmoothPath(scores: number[], width = 160, height = 30) {
@@ -575,25 +529,25 @@ export function SectionCards() {
   const metricCards = [
     {
       id: "total",
-      title: "Total Projects",
+      title: "CBRN Exercises",
       count: activeSubject.totalProjects,
       trend: activeSubject.projectTrend,
     },
     {
       id: "ended",
-      title: "Ended Projects",
+      title: "Surveys Completed",
       count: activeSubject.endedProjects,
       trend: activeSubject.endedTrend,
     },
     {
       id: "running",
-      title: "Running Projects",
+      title: "DRF Ops Active",
       count: activeSubject.runningProjects,
       trend: activeSubject.runningTrend,
     },
     {
       id: "pending",
-      title: "Pending Projects",
+      title: "Queued IEMP Evals",
       count: activeSubject.pendingProjects,
       trend: activeSubject.pendingTrend,
     },
@@ -633,7 +587,7 @@ export function SectionCards() {
               placeholder="Search students..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="ml-3 w-full bg-transparent text-sm outline-none text-[#163144] placeholder:text-[#163144]/60 dark:text-white dark:placeholder:text-white/60"
+              className="ml-3 w-full bg-transparent text-sm outline-none text-[#1e232b] placeholder:text-[#1e232b]/60 dark:text-white dark:placeholder:text-white/60"
               autoFocus
             />
           )}
@@ -655,8 +609,8 @@ export function SectionCards() {
                 <div 
                   className={`relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border transform-gpu transition-all duration-150 ease-out group-hover/student-btn:-translate-y-0.5 ${
                     isActive 
-                      ? "border-[#163144] dark:border-blue-500/60 bg-[#163144] dark:bg-blue-500/50 text-white ring-2 ring-[#163144] dark:ring-blue-500/50 ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(22,49,68,0.35)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(22,49,68,0.45)]" 
-                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-[#163144] dark:text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
+                      ? "border-[#FACC15]/60 dark:border-yellow-500/60 bg-[#1e232b] dark:bg-yellow-500/50 text-[#FACC15] dark:text-zinc-950 ring-2 ring-[#FACC15] dark:ring-yellow-500/50 ring-offset-2 ring-offset-background shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_4px_14px_-2px_rgba(30,35,43,0.35)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.7),0_8px_16px_-4px_rgba(30,35,43,0.45)]" 
+                      : "border-black/[0.06] dark:border-white/[0.08] bg-black/[0.035] dark:bg-white/[0.02] text-[#1e232b] dark:text-foreground backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_4px_12px_-2px_rgba(0,0,0,0.06)] group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_16px_-4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_4px_12px_-2px_rgba(0,0,0,0.4)] dark:group-hover/student-btn:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_10px_20px_-4px_rgba(0,0,0,0.65)] group-hover/student-btn:border-black/15 dark:group-hover/student-btn:border-white/20 group-hover/student-btn:bg-black/[0.05] dark:group-hover/student-btn:bg-white/[0.04]"
                   }`}
                 >
                   <span className="text-sm font-semibold">{student.initials}</span>
@@ -668,11 +622,11 @@ export function SectionCards() {
 
                 {isSidebarExpanded && (
                   <div className="flex flex-col items-start overflow-hidden min-w-0 flex-1">
-                    <span className={`truncate text-sm font-medium ${isActive ? "text-[#163144] font-bold dark:text-blue-400" : "text-[#163144] dark:text-foreground"}`}>
+                    <span className={`truncate text-sm font-medium ${isActive ? "text-[#1e232b] font-bold dark:text-yellow-400" : "text-[#1e232b] dark:text-foreground"}`}>
                       {student.name}
                     </span>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-[#163144]/75 dark:text-muted-foreground uppercase tracking-wider">{student.branch}</span>
+                      <span className="text-xs text-[#1e232b]/75 dark:text-muted-foreground uppercase tracking-wider">{student.branch}</span>
                       {student.isLive && (
                         <span className="relative flex size-2 items-center justify-center">
                           <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -690,7 +644,7 @@ export function SectionCards() {
 
       {/* Main Dashboard Area */}
       <div 
-        className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-[#587589] to-[#dff3eb] dark:from-[#0c151d] dark:to-[#152431]"
+        className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-[#4a5565] via-[#6a7686] to-[#a2acb9] dark:from-[#05070a] dark:via-[#090d14] dark:to-[#101722]"
       >
         {/* Scrollable Content Container */}
         <div 
@@ -713,10 +667,10 @@ export function SectionCards() {
           <header className="sticky top-0 z-20 flex min-h-20 shrink-0 items-center justify-between border-b border-black/10 dark:border-border/50 bg-white/20 dark:bg-background/70 px-6 backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] shadow-[0_12px_32px_-4px_rgba(0,0,0,0.2),0_4px_12px_-2px_rgba(0,0,0,0.1)] dark:shadow-[0_16px_36px_-4px_rgba(0,0,0,0.6),0_6px_16px_-2px_rgba(0,0,0,0.4)]">
             <div className="flex flex-col justify-center">
               <h1 className="text-2xl font-bold tracking-tight text-white">
-                Squadron 231
+                Emergency Management Division (CXR)
               </h1>
               <p className="text-sm font-medium text-white">
-                3rd Class
+                USS Gerald R. Ford (CVN-78) • Strike Fighter Squadron
               </p>
             </div>
           </header>
@@ -759,23 +713,23 @@ export function SectionCards() {
                       strokeDashoffset={276.46 - (activeSubject.score / 100) * 276.46}
                       className={`transition-all duration-1000 ease-out ${
                         activeSubject.score >= 90
-                          ? "stroke-[#163144] dark:stroke-[#60A5FA] [filter:drop-shadow(0_0_6px_rgba(22,49,68,0.3))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.65))]"
+                          ? "stroke-[#FACC15] dark:stroke-[#FACC15] [filter:drop-shadow(0_0_6px_rgba(250,204,21,0.3))] dark:[filter:drop-shadow(0_0_8px_rgba(250,204,21,0.65))]"
                           : activeSubject.score >= 75
-                          ? "stroke-[#163144]/70 dark:stroke-[#60A5FA]/70"
-                          : "stroke-[#163144]/35 dark:stroke-[#60A5FA]/35"
+                          ? "stroke-[#FACC15]/75 dark:stroke-[#FACC15]/70"
+                          : "stroke-[#FACC15]/40 dark:stroke-[#FACC15]/35"
                       }`}
                     />
                   </svg>
 
                   {/* Inner Avatar Placeholder */}
-                  <div className="relative flex size-24 items-center justify-center overflow-hidden rounded-full border-2 border-white/60 dark:border-white/15 bg-black/[0.04] dark:bg-[#162736]/70 backdrop-blur-md shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]">
-                    <span className="text-3xl font-black tracking-wider text-[#163144] dark:text-[#60A5FA] drop-shadow-xs dark:drop-shadow-[0_0_10px_rgba(96,165,250,0.35)]">
+                  <div className="relative flex size-24 items-center justify-center overflow-hidden rounded-full border-2 border-white/60 dark:border-white/15 bg-[#1e232b] dark:bg-[#162736]/70 backdrop-blur-md shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]">
+                    <span className="text-3xl font-black tracking-wider text-[#FACC15] dark:text-[#FACC15] drop-shadow-xs dark:drop-shadow-[0_0_10px_rgba(250,204,21,0.35)]">
                       {activeSubject.initials}
                     </span>
                   </div>
 
                   {/* Opaque Telemetry Score Badge with Tabular Monospace font */}
-                  <div className="absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black bg-[#163144] dark:bg-[#60A5FA] text-white dark:text-zinc-950 shadow-md tabular-nums font-mono">
+                  <div className="absolute -right-1 -top-1 flex h-11 min-w-11 items-center justify-center rounded-full border-[3px] border-background px-1.5 text-lg font-black bg-[#1e232b] dark:bg-[#FACC15] text-[#FACC15] dark:text-zinc-950 border-2 border-[#FACC15]/60 shadow-md tabular-nums font-mono">
                     {activeSubject.score}
                   </div>
                 </div>
@@ -809,7 +763,7 @@ export function SectionCards() {
                     >
                       <div
                         ref={(el) => { cardRefs.current[card.id] = el }}
-                        className={`group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-[185px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out h-full ${
+                        className={`group/metric-card relative overflow-hidden flex flex-col justify-start p-4 min-h-[185px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1.5 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out h-full ${
                           isCurrentExpanded ? "opacity-20 pointer-events-none" : ""
                         }`}
                       >
@@ -823,7 +777,7 @@ export function SectionCards() {
                               e.stopPropagation()
                               handleOpenCard(card.id)
                             }}
-                            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-black/[0.08] dark:border-white/10 bg-white/60 dark:bg-white/10 text-[#163144] dark:text-muted-foreground hover:bg-white/90 dark:hover:bg-white/20 hover:text-foreground active:scale-95 shadow-xs transition-all duration-300 group/btn"
+                            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-black/[0.08] dark:border-white/10 bg-white/60 dark:bg-white/10 text-[#1e232b] dark:text-muted-foreground hover:bg-white/90 dark:hover:bg-white/20 hover:text-foreground active:scale-95 shadow-xs transition-all duration-300 group/btn"
                             title={`Expand ${card.title} dossier`}
                             aria-label={`Expand ${card.title}`}
                           >
@@ -849,11 +803,11 @@ export function SectionCards() {
                                 <div className="h-2 w-full rounded-full bg-black/10 dark:bg-white/10 overflow-hidden flex gap-0.5 p-[0.5px]">
                                   {/* Pass Segment */}
                                   <div 
-                                    className="group/pass relative h-full rounded-full bg-[#163144] dark:bg-[#60A5FA] shadow-[0_0_8px_rgba(22,49,68,0.35)] dark:shadow-[0_0_8px_rgba(96,165,250,0.45)] hover:brightness-110 transition-all duration-300 ease-out cursor-pointer"
+                                    className="group/pass relative h-full rounded-full bg-[#FACC15] dark:bg-[#FACC15] shadow-[0_0_8px_rgba(250,204,21,0.35)] dark:shadow-[0_0_8px_rgba(250,204,21,0.45)] hover:brightness-110 transition-all duration-300 ease-out cursor-pointer"
                                     style={{ width: `${passRate}%` }}
                                   >
                                     {/* Tooltip on hover */}
-                                    <div className="pointer-events-none opacity-0 group-hover/pass:opacity-100 transition-all duration-150 absolute -top-8 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap">
+                                    <div className="pointer-events-none opacity-0 group-hover/pass:opacity-100 transition-all duration-150 absolute -top-8 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#FACC15] dark:text-[#FACC15] whitespace-nowrap">
                                       QUALIFIED: {passed}/{total} ({passRate}%)
                                     </div>
                                   </div>
@@ -861,7 +815,7 @@ export function SectionCards() {
                                   {/* Retry Segment */}
                                   {retry > 0 && (
                                     <div 
-                                      className="group/retry relative h-full rounded-full bg-[#163144]/25 dark:bg-[#60A5FA]/25 hover:bg-[#163144]/40 dark:hover:bg-[#60A5FA]/45 transition-all duration-300 ease-out cursor-pointer"
+                                      className="group/retry relative h-full rounded-full bg-[#FACC15]/25 dark:bg-[#FACC15]/25 hover:bg-[#1e232b]/40 dark:hover:bg-[#FACC15]/45 transition-all duration-300 ease-out cursor-pointer"
                                       style={{ width: `${100 - passRate}%` }}
                                     >
                                       {/* Tooltip on hover */}
@@ -878,7 +832,7 @@ export function SectionCards() {
                                     <span className="opacity-40">•</span>
                                     <span>{retry} RETRY</span>
                                   </div>
-                                  <span className="text-[#163144] dark:text-[#60A5FA] font-bold">{passRate}% QUAL</span>
+                                  <span className="text-[#FACC15] dark:text-[#FACC15] font-bold">{passRate}% QUAL</span>
                                 </div>
                               </div>
                             )
@@ -894,7 +848,7 @@ export function SectionCards() {
                                 {/* Floating Tooltip if hovering */}
                                 {sparklineHoverIdx !== null && activePoint && (
                                   <div 
-                                    className="pointer-events-none absolute -top-7 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap transition-all duration-150 -translate-x-1/2"
+                                    className="pointer-events-none absolute -top-7 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#FACC15] dark:text-[#FACC15] whitespace-nowrap transition-all duration-150 -translate-x-1/2"
                                     style={{ left: `${Math.max(28, Math.min(72, (activePoint.x / 150) * 100))}%` }}
                                   >
                                     SORTIE #{activeIdx + 1}: {activePoint.val} PTS
@@ -909,8 +863,8 @@ export function SectionCards() {
                                   <svg className="w-full h-full overflow-visible" viewBox="0 0 150 30" preserveAspectRatio="none">
                                     <defs>
                                       <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" className="[stop-color:#163144] dark:[stop-color:#60A5FA]" stopOpacity="0.25" />
-                                        <stop offset="100%" className="[stop-color:#163144] dark:[stop-color:#60A5FA]" stopOpacity="0.0" />
+                                        <stop offset="0%" className="[stop-color:#FACC15] dark:[stop-color:#FACC15]" stopOpacity="0.25" />
+                                        <stop offset="100%" className="[stop-color:#FACC15] dark:[stop-color:#FACC15]" stopOpacity="0.0" />
                                       </linearGradient>
                                     </defs>
                                     {areaPath && (
@@ -924,7 +878,7 @@ export function SectionCards() {
                                         strokeWidth="2" 
                                         strokeLinecap="round" 
                                         strokeLinejoin="round" 
-                                        className="text-[#163144] dark:text-[#60A5FA] transition-all duration-500 ease-out [filter:drop-shadow(0_1px_4px_rgba(22,49,68,0.25))] dark:[filter:drop-shadow(0_1px_4px_rgba(96,165,250,0.4))]" 
+                                        className="text-[#FACC15] dark:text-[#FACC15] transition-all duration-500 ease-out [filter:drop-shadow(0_1px_4px_rgba(250,204,21,0.25))] dark:[filter:drop-shadow(0_1px_4px_rgba(250,204,21,0.4))]" 
                                       />
                                     )}
 
@@ -946,7 +900,7 @@ export function SectionCards() {
                                   {/* Vertical Telemetry Guideline (HTML overlay) */}
                                   {sparklineHoverIdx !== null && activePoint && (
                                     <div 
-                                      className="pointer-events-none absolute top-0 bottom-0 w-0 border-l border-dashed border-[#163144]/40 dark:border-[#60A5FA]/60 transition-all duration-150"
+                                      className="pointer-events-none absolute top-0 bottom-0 w-0 border-l border-dashed border-[#FACC15]/40 dark:border-[#FACC15]/60 transition-all duration-150"
                                       style={{ left: `${(activePoint.x / 150) * 100}%` }}
                                     />
                                   )}
@@ -961,9 +915,9 @@ export function SectionCards() {
                                       }}
                                     >
                                       {/* Steady circular halo */}
-                                      <div className="absolute size-4 rounded-full bg-[#163144]/20 dark:bg-[#60A5FA]/30" />
+                                      <div className="absolute size-4 rounded-full bg-[#FACC15]/20 dark:bg-[#FACC15]/30" />
                                       {/* Core circle */}
-                                      <div className="size-2 rounded-full bg-[#163144] dark:bg-[#60A5FA] border-[1.5px] border-background shadow-xs" />
+                                      <div className="size-2 rounded-full bg-[#FACC15] dark:bg-[#FACC15] border-[1.5px] border-background shadow-xs" />
                                     </div>
                                   )}
                                 </div>
@@ -972,7 +926,7 @@ export function SectionCards() {
                                   <span className="text-white dark:text-muted-foreground tracking-wider">
                                     {sparklineHoverIdx !== null ? `SORTIE ${sparklineHoverIdx + 1} OF ${points.length}` : "5-SORTIE TREND"}
                                   </span>
-                                  <span className="text-[#163144] dark:text-[#60A5FA] font-bold">
+                                  <span className="text-[#FACC15] dark:text-[#FACC15] font-bold">
                                     {activePoint.val} PTS {sparklineHoverIdx === null ? "PEAK" : ""}
                                   </span>
                                 </div>
@@ -988,7 +942,7 @@ export function SectionCards() {
                                   className="group/sortie relative flex items-center gap-2 font-mono text-[10px] hover:bg-black/5 dark:hover:bg-white/5 px-1 -mx-1 py-0.5 rounded cursor-pointer transition-colors"
                                 >
                                   {/* Floating HUD Tooltip */}
-                                  <div className="pointer-events-none opacity-0 group-hover/sortie:opacity-100 transition-all duration-150 absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap">
+                                  <div className="pointer-events-none opacity-0 group-hover/sortie:opacity-100 transition-all duration-150 absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold text-[#FACC15] dark:text-[#FACC15] whitespace-nowrap">
                                     {sortie.code}: {sortie.name || "Sortie"} • {sortie.progress}% ACTIVE
                                   </div>
 
@@ -1000,7 +954,7 @@ export function SectionCards() {
                                   </span>
                                   <div className="h-1.5 flex-1 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden p-[0.5px]">
                                     <div 
-                                      className="h-full rounded-full bg-[#163144] dark:bg-[#60A5FA] transition-all duration-700 ease-out"
+                                      className="h-full rounded-full bg-[#FACC15] dark:bg-[#FACC15] transition-all duration-700 ease-out"
                                       style={{ width: `${sortie.progress}%` }}
                                     />
                                   </div>
@@ -1027,7 +981,7 @@ export function SectionCards() {
                                     <div key={item.name} className="group/node relative z-10 flex flex-col items-center cursor-pointer">
                                       {/* Floating HUD Tooltip */}
                                       <div className={`pointer-events-none opacity-0 group-hover/node:opacity-100 transition-all duration-150 absolute -top-7.5 z-40 px-2.5 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg text-xs font-mono font-bold whitespace-nowrap text-foreground ${alignClass}`}>
-                                        <span className={item.done ? "text-[#163144] dark:text-[#60A5FA]" : "text-amber-500"}>
+                                        <span className={item.done ? "text-[#FACC15] dark:text-[#FACC15]" : "text-amber-500"}>
                                           {item.done ? "CLEARED: " : "WAITING: "}
                                         </span>
                                         {item.detail || item.name}
@@ -1036,7 +990,7 @@ export function SectionCards() {
                                       <div 
                                         className={`size-4 rounded-full flex items-center justify-center border transition-all group-hover/node:scale-110 ${
                                           item.done 
-                                            ? "bg-[#163144] dark:bg-[#60A5FA] border-[#163144] dark:border-[#60A5FA] text-white dark:text-zinc-950 shadow-[0_0_8px_rgba(22,49,68,0.3)] dark:shadow-[0_0_8px_rgba(96,165,250,0.4)]"
+                                            ? "bg-[#1e232b] dark:bg-[#FACC15] border-[#FACC15] dark:border-[#FACC15] text-[#FACC15] dark:text-zinc-950 shadow-[0_0_8px_rgba(30,35,43,0.3)] dark:shadow-[0_0_8px_rgba(250,204,21,0.4)]"
                                             : "bg-background border-white/40 dark:border-muted-foreground/40 text-white dark:text-muted-foreground"
                                         }`}
                                       >
@@ -1059,7 +1013,7 @@ export function SectionCards() {
                                 <span className="text-white dark:text-muted-foreground">
                                   {activeSubject.pendingChecklist.filter(c => c.done).length}/{activeSubject.pendingChecklist.length} READY
                                 </span>
-                                <span className="text-[#163144] dark:text-[#60A5FA] font-bold">
+                                <span className="text-[#FACC15] dark:text-[#FACC15] font-bold">
                                   {activeSubject.pendingChecklist.every(c => c.done) ? "ALL CLEARED" : "AUTH QUEUED"}
                                 </span>
                               </div>
@@ -1070,12 +1024,12 @@ export function SectionCards() {
                         {/* Trend Badge: Positioned away towards bottom */}
                         <div className="mt-auto pt-3.5">
                           {card.id === "pending" ? (
-                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#163144]/20 bg-[#163144]/10 text-[#163144] dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
+                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#FACC15]/30 bg-[#FACC15]/10 text-[#FACC15] dark:border-[#FACC15]/25 dark:bg-[#FACC15]/10 dark:text-[#FACC15]">
                               <MessageSquareText className="size-3.5" />
                               <span>Pending discussions</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#163144]/20 bg-[#163144]/10 text-[#163144] dark:border-[#60A5FA]/25 dark:bg-[#60A5FA]/10 dark:text-[#60A5FA]">
+                            <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap border border-[#FACC15]/30 bg-[#FACC15]/10 text-[#FACC15] dark:border-[#FACC15]/25 dark:bg-[#FACC15]/10 dark:text-[#FACC15]">
                               {card.trend === "increased" ? (
                                 <>
                                   <TrendingUp className="size-3.5" />
@@ -1106,22 +1060,22 @@ export function SectionCards() {
           </div>
 
           {/* Full Width Thin Divider */}
-          <hr className="w-full border-t border-[#163144]/50 dark:border-border/50" />
+          <hr className="w-full border-t border-[#1e232b]/50 dark:border-border/50" />
 
           {/* Projects & Scores Grid Section */}
           <div ref={projectsSectionRef} className="p-6 lg:p-10">
             <div className={`mb-6 flex flex-wrap items-end justify-between gap-4 ${projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both]" : "opacity-0"}`}>
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#163144] dark:text-foreground">
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                   Projects & Scores
                 </h2>
-                <p className="text-xs sm:text-sm text-[#163144]/85 dark:text-muted-foreground mt-0.5">
-                  Real-time flight envelopes, procedural compliance, competency radar, and milestone progression
+                <p className="text-xs sm:text-sm text-[#1e232b]/85 dark:text-muted-foreground mt-0.5">
+                  Real-time CBRN telemetry, procedural compliance, competency radar, and milestone progression
                 </p>
               </div>
 
               {/* Status Indicator */}
-              <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border border-black/[0.08] dark:border-white/10 bg-white/40 dark:bg-white/[0.03] backdrop-blur-sm text-[#163144] dark:text-foreground shadow-xs">
+              <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border border-black/[0.08] dark:border-white/10 bg-white/40 dark:bg-white/[0.03] backdrop-blur-sm text-[#1e232b] dark:text-foreground shadow-xs">
                 <span className="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
                 <span className="tracking-wide">ACTIVE SYLLABUS • {activeSubject.name}</span>
               </div>
@@ -1170,22 +1124,22 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out @xl/main:col-span-2 ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out @xl/main:col-span-2 ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:220ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <div className="flex items-center gap-2.5">
-                        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                           <Activity className="size-4.5" />
                         </div>
                         <div>
-                          <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                          <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                             Current Project Telemetry
                           </h3>
-                          <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
-                            SIM-01 Instrument Solo • Real-Time Flight Envelope & Tolerance
+                          <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
+                            CBRN-01 Point Detection • Real-Time Sensor Envelope & Tolerance
                           </p>
                         </div>
                       </div>
@@ -1201,7 +1155,7 @@ export function SectionCards() {
                     <div className="relative flex-1 min-h-[220px] w-full flex items-center justify-center my-1">
                       {/* Active Hover Inspection Tag */}
                       {activeHoverPoint && (
-                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-3 px-3 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg border border-border/60 text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA]">
+                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-3 px-3 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg border border-border/60 text-xs font-mono font-bold text-[#FACC15] dark:text-[#FACC15]">
                           <span>{activeHoverPoint.t}</span>
                           <span>•</span>
                           <span>ALT: {activeHoverPoint.alt} FT</span>
@@ -1219,26 +1173,26 @@ export function SectionCards() {
                       >
                         <defs>
                           <linearGradient id="corridorGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="rgb(22, 49, 68)" stopOpacity="0.12" className="dark:stop-color-[#60A5FA] dark:stop-opacity-15" />
-                            <stop offset="50%" stopColor="rgb(22, 49, 68)" stopOpacity="0.04" className="dark:stop-color-[#60A5FA] dark:stop-opacity-05" />
-                            <stop offset="100%" stopColor="rgb(22, 49, 68)" stopOpacity="0.12" className="dark:stop-color-[#60A5FA] dark:stop-opacity-15" />
+                            <stop offset="0%" stopColor="rgb(22, 49, 68)" stopOpacity="0.12" className="dark:stop-color-[#FACC15] dark:stop-opacity-15" />
+                            <stop offset="50%" stopColor="rgb(22, 49, 68)" stopOpacity="0.04" className="dark:stop-color-[#FACC15] dark:stop-opacity-05" />
+                            <stop offset="100%" stopColor="rgb(22, 49, 68)" stopOpacity="0.12" className="dark:stop-color-[#FACC15] dark:stop-opacity-15" />
                           </linearGradient>
                           <linearGradient id="flightLineGrad" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="#163144" className="dark:stop-color-[#60A5FA]" />
+                            <stop offset="0%" stopColor="#1e232b" className="dark:stop-color-[#FACC15]" />
                             <stop offset="50%" stopColor="#255273" className="dark:stop-color-[#93C5FD]" />
-                            <stop offset="100%" stopColor="#163144" className="dark:stop-color-[#60A5FA]" />
+                            <stop offset="100%" stopColor="#1e232b" className="dark:stop-color-[#FACC15]" />
                           </linearGradient>
                         </defs>
 
                         {/* Horizontal Grid & Altitude Labels */}
                         <line x1="45" y1="55" x2="515" y2="55" stroke="currentColor" strokeOpacity="0.15" strokeDasharray="3 3" />
-                        <text x="40" y="59" textAnchor="end" className="text-[10px] font-mono font-medium fill-[#163144]/80 dark:fill-muted-foreground">15,300</text>
+                        <text x="40" y="59" textAnchor="end" className="text-[10px] font-mono font-medium fill-[#1e232b]/80 dark:fill-muted-foreground">15,300</text>
 
                         <line x1="45" y1="100" x2="515" y2="100" stroke="currentColor" strokeOpacity="0.25" strokeDasharray="4 2" />
-                        <text x="40" y="104" textAnchor="end" className="text-[10px] font-mono font-bold fill-[#163144] dark:fill-[#60A5FA]">15,000</text>
+                        <text x="40" y="104" textAnchor="end" className="text-[10px] font-mono font-bold fill-[#FACC15] dark:fill-[#FACC15]">15,000</text>
 
                         <line x1="45" y1="145" x2="515" y2="145" stroke="currentColor" strokeOpacity="0.15" strokeDasharray="3 3" />
-                        <text x="40" y="149" textAnchor="end" className="text-[10px] font-mono font-medium fill-[#163144]/80 dark:fill-muted-foreground">14,700</text>
+                        <text x="40" y="149" textAnchor="end" className="text-[10px] font-mono font-medium fill-[#1e232b]/80 dark:fill-muted-foreground">14,700</text>
 
                         {/* Shaded Corridor Tolerance Polygon */}
                         <polygon
@@ -1253,7 +1207,7 @@ export function SectionCards() {
                           stroke="url(#flightLineGrad)"
                           strokeWidth="2.5"
                           strokeLinecap="round"
-                          className="[filter:drop-shadow(0_2px_4px_rgba(22,49,68,0.25))] dark:[filter:drop-shadow(0_0_6px_rgba(96,165,250,0.5))]"
+                          className="[filter:drop-shadow(0_2px_4px_rgba(30,35,43,0.25))] dark:[filter:drop-shadow(0_0_6px_rgba(250,204,21,0.5))]"
                         />
 
                         {/* Points & Hover Target Areas */}
@@ -1268,8 +1222,8 @@ export function SectionCards() {
                               r={telemetryHoverIdx === i ? "5.5" : "3.5"}
                               className={`transition-all duration-150 ${
                                 telemetryHoverIdx === i
-                                  ? "fill-white stroke-[#163144] dark:stroke-[#60A5FA] stroke-[2.5]"
-                                  : "fill-[#163144] dark:fill-[#60A5FA]"
+                                  ? "fill-white stroke-[#FACC15] dark:stroke-[#FACC15] stroke-[2.5]"
+                                  : "fill-[#FACC15] dark:fill-[#FACC15]"
                               }`}
                             />
                             {/* X-axis time label */}
@@ -1279,8 +1233,8 @@ export function SectionCards() {
                               textAnchor="middle"
                               className={`text-[10px] font-mono font-medium transition-colors ${
                                 telemetryHoverIdx === i
-                                  ? "fill-[#163144] dark:fill-[#60A5FA] font-bold"
-                                  : "fill-[#163144]/80 dark:fill-muted-foreground"
+                                  ? "fill-[#FACC15] dark:fill-[#FACC15] font-bold"
+                                  : "fill-[#1e232b]/80 dark:fill-muted-foreground"
                               }`}
                             >
                               {pt.t}
@@ -1291,15 +1245,15 @@ export function SectionCards() {
                     </div>
 
                     {/* Footer telemetry metadata */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
                       <div className="flex items-center gap-3">
-                        <span>Corridor Hold: <strong className="font-mono text-[#163144] dark:text-foreground">98.2%</strong></span>
+                        <span>Corridor Hold: <strong className="font-mono text-[#1e232b] dark:text-foreground">98.2%</strong></span>
                         <span>•</span>
-                        <span>Max G: <strong className="font-mono text-[#163144] dark:text-foreground">3.4G</strong></span>
+                        <span>Max G: <strong className="font-mono text-[#1e232b] dark:text-foreground">3.4G</strong></span>
                         <span>•</span>
                         <span>Profile: <strong className="text-emerald-700 dark:text-emerald-400">Stable</strong></span>
                       </div>
-                      <span className="font-mono text-[11px] text-[#163144]/80 dark:text-muted-foreground">FLT LOG #2026-X8</span>
+                      <span className="font-mono text-[11px] text-[#1e232b]/80 dark:text-muted-foreground">FLT LOG #2026-X8</span>
                     </div>
 
                     {/* Sheen */}
@@ -1316,21 +1270,21 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:340ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center gap-2.5 mb-2">
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                         <Gauge className="size-4.5" />
                       </div>
                       <div>
-                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                           Procedural Accuracy
                         </h3>
-                        <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
-                          Pre-Flight Checklist & Startup
+                        <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
+                          Pre-Deployment PPE & IEMP Checklist
                         </p>
                       </div>
                     </div>
@@ -1356,32 +1310,32 @@ export function SectionCards() {
                           strokeLinecap="round"
                           strokeDasharray="280"
                           strokeDashoffset={280 * (1 - Number(procScore) / 100)}
-                          className="text-[#163144] dark:text-[#60A5FA] transition-all duration-1000 ease-out [filter:drop-shadow(0_2px_4px_rgba(22,49,68,0.25))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.5))]"
+                          className="text-[#FACC15] dark:text-[#FACC15] transition-all duration-1000 ease-out [filter:drop-shadow(0_2px_4px_rgba(30,35,43,0.25))] dark:[filter:drop-shadow(0_0_8px_rgba(250,204,21,0.5))]"
                         />
 
                         {/* Center Score readout */}
-                        <text x="140" y="98" textAnchor="middle" className="text-3xl font-black font-mono tracking-tight fill-[#163144] dark:fill-foreground">
+                        <text x="140" y="98" textAnchor="middle" className="text-3xl font-black font-mono tracking-tight fill-[#1e232b] dark:fill-foreground">
                           {procScore}%
                         </text>
-                        <text x="140" y="118" textAnchor="middle" className="text-[10px] font-bold uppercase tracking-widest fill-[#163144]/80 dark:fill-muted-foreground">
+                        <text x="140" y="118" textAnchor="middle" className="text-[10px] font-bold uppercase tracking-widest fill-[#1e232b]/80 dark:fill-muted-foreground">
                           SYSTEM COMPLIANCE
                         </text>
                       </svg>
                     </div>
 
                     {/* Breakdown Progress Bars */}
-                    <div className="space-y-2 pt-2 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
+                    <div className="space-y-2 pt-2 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
                       <div className="flex items-center justify-between">
                         <span>Checklist Adherence</span>
-                        <span className="font-mono font-bold text-[#163144] dark:text-foreground">{checklistRate}%</span>
+                        <span className="font-mono font-bold text-[#1e232b] dark:text-foreground">{checklistRate}%</span>
                       </div>
                       <div className="h-1.5 w-full rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
-                        <div className="h-full rounded-full bg-[#163144] dark:bg-[#60A5FA]" style={{ width: `${checklistRate}%` }} />
+                        <div className="h-full rounded-full bg-[#FACC15] dark:bg-[#FACC15]" style={{ width: `${checklistRate}%` }} />
                       </div>
 
                       <div className="flex items-center justify-between pt-1">
                         <span>Switch Latency</span>
-                        <span className="font-mono font-bold text-[#163144] dark:text-foreground">{switchLatency}s <span className="text-[10px] font-normal text-emerald-600 dark:text-emerald-400">(PASS)</span></span>
+                        <span className="font-mono font-bold text-[#1e232b] dark:text-foreground">{switchLatency}s <span className="text-[10px] font-normal text-emerald-600 dark:text-emerald-400">(PASS)</span></span>
                       </div>
                     </div>
 
@@ -1423,21 +1377,21 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:440ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center gap-2.5 mb-2">
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                         <Target className="size-4.5" />
                       </div>
                       <div>
-                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                           Competency Radar
                         </h3>
-                        <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
-                          5-Axis Pilot Evaluation vs Cohort Avg
+                        <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
+                          5-Axis Emergency Specialist Evaluation vs Cohort Avg
                         </p>
                       </div>
                     </div>
@@ -1496,7 +1450,7 @@ export function SectionCards() {
                           fillOpacity="0.18"
                           stroke="currentColor"
                           strokeWidth="2.5"
-                          className="text-[#163144] dark:text-[#60A5FA] [filter:drop-shadow(0_0_6px_rgba(22,49,68,0.3))] dark:[filter:drop-shadow(0_0_8px_rgba(96,165,250,0.5))]"
+                          className="text-[#FACC15] dark:text-[#FACC15] [filter:drop-shadow(0_0_6px_rgba(30,35,43,0.3))] dark:[filter:drop-shadow(0_0_8px_rgba(250,204,21,0.5))]"
                         />
 
                         {/* Vertices & Axis Labels */}
@@ -1519,8 +1473,8 @@ export function SectionCards() {
                                 r={isHovered ? "5" : "3.5"}
                                 className={`transition-all ${
                                   isHovered
-                                    ? "fill-white stroke-[#163144] dark:stroke-[#60A5FA] stroke-2"
-                                    : "fill-[#163144] dark:fill-[#60A5FA]"
+                                    ? "fill-white stroke-[#FACC15] dark:stroke-[#FACC15] stroke-2"
+                                    : "fill-[#FACC15] dark:fill-[#FACC15]"
                                 }`}
                               />
                               <text
@@ -1529,8 +1483,8 @@ export function SectionCards() {
                                 textAnchor={i === 0 ? "middle" : i === 1 || i === 2 ? "start" : "end"}
                                 className={`text-[10px] font-bold tracking-wider transition-colors ${
                                   isHovered
-                                    ? "fill-[#163144] dark:fill-[#60A5FA]"
-                                    : "fill-[#163144]/80 dark:fill-muted-foreground"
+                                    ? "fill-[#FACC15] dark:fill-[#FACC15]"
+                                    : "fill-[#1e232b]/80 dark:fill-muted-foreground"
                                 }`}
                               >
                                 {axis.label} ({axis.score}%)
@@ -1542,12 +1496,12 @@ export function SectionCards() {
                     </div>
 
                     {/* Footer legend */}
-                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
+                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
                       <div className="flex items-center gap-2">
-                        <span className="size-2 rounded-full bg-[#163144] dark:bg-[#60A5FA]" />
-                        <span className="font-semibold text-[#163144] dark:text-foreground">Candidate</span>
-                        <span className="text-[#163144]/40 dark:text-muted-foreground/60">•</span>
-                        <span className="border-b border-dashed border-[#163144]/60 dark:border-muted-foreground/60 w-4 inline-block" />
+                        <span className="size-2 rounded-full bg-[#1e232b] dark:bg-[#FACC15]" />
+                        <span className="font-semibold text-[#1e232b] dark:text-foreground">Candidate</span>
+                        <span className="text-[#1e232b]/40 dark:text-muted-foreground/60">•</span>
+                        <span className="border-b border-dashed border-[#1e232b]/60 dark:border-muted-foreground/60 w-4 inline-block" />
                         <span>Squadron Avg</span>
                       </div>
                     </div>
@@ -1574,20 +1528,20 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:540ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center gap-2.5 mb-2">
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                         <Crosshair className="size-4.5" />
                       </div>
                       <div>
-                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                           ILS Landing Dispersion
                         </h3>
-                        <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
+                        <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
                           Runway Centerline & Glide Slope Touchdown
                         </p>
                       </div>
@@ -1597,7 +1551,7 @@ export function SectionCards() {
                     <div className="relative flex-1 min-h-[200px] flex items-center justify-center my-1">
                       {/* Active Hover Tag */}
                       {activeAttempt && (
-                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none px-2.5 py-0.5 rounded bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-md border border-border/60 text-[11px] font-mono font-bold text-[#163144] dark:text-[#60A5FA] whitespace-nowrap">
+                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none px-2.5 py-0.5 rounded bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-md border border-border/60 text-[11px] font-mono font-bold text-[#FACC15] dark:text-[#FACC15] whitespace-nowrap">
                           {activeAttempt.label}: {activeAttempt.dx > 0 ? `+${activeAttempt.dx}` : activeAttempt.dx}ft lat, {activeAttempt.dy > 0 ? `+${activeAttempt.dy}` : activeAttempt.dy}ft vert (Wire {activeAttempt.wire})
                         </div>
                       )}
@@ -1655,8 +1609,8 @@ export function SectionCards() {
                                 r={isHov ? "5" : "3.5"}
                                 className={`transition-all ${
                                   isHov
-                                    ? "fill-white stroke-[#163144] dark:stroke-[#60A5FA] stroke-2"
-                                    : "fill-[#163144] dark:fill-[#60A5FA]"
+                                    ? "fill-white stroke-[#FACC15] dark:stroke-[#FACC15] stroke-2"
+                                    : "fill-[#FACC15] dark:fill-[#FACC15]"
                                 }`}
                               />
                             </g>
@@ -1664,15 +1618,15 @@ export function SectionCards() {
                         })}
 
                         {/* Range markers */}
-                        <text x={center.x + 28} y={center.y - 4} className="text-[9px] font-mono font-medium fill-[#163144]/80 dark:fill-muted-foreground">5ft</text>
-                        <text x={center.x + 54} y={center.y - 4} className="text-[9px] font-mono font-medium fill-[#163144]/80 dark:fill-muted-foreground">15ft</text>
+                        <text x={center.x + 28} y={center.y - 4} className="text-[9px] font-mono font-medium fill-[#1e232b]/80 dark:fill-muted-foreground">5ft</text>
+                        <text x={center.x + 54} y={center.y - 4} className="text-[9px] font-mono font-medium fill-[#1e232b]/80 dark:fill-muted-foreground">15ft</text>
                       </svg>
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
-                      <span>Carrier Trap 3-Wire: <strong className="font-mono text-emerald-700 dark:text-emerald-400">83.3%</strong></span>
-                      <span>Bolters: <strong className="font-mono text-[#163144] dark:text-foreground">0</strong></span>
+                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
+                      <span>Zone Hit Rate: <strong className="font-mono text-emerald-700 dark:text-emerald-400">89.2%</strong></span>
+                      <span>Bolters: <strong className="font-mono text-[#1e232b] dark:text-foreground">0</strong></span>
                     </div>
 
                     {/* Sheen */}
@@ -1693,20 +1647,20 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:600ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center gap-2.5 mb-2">
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                         <Zap className="size-4.5" />
                       </div>
                       <div>
-                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                        <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                           BFM Engagement Matrix
                         </h3>
-                        <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
+                        <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
                           Dogfight Reaction & Radar Lock Speed
                         </p>
                       </div>
@@ -1727,27 +1681,27 @@ export function SectionCards() {
                           >
                             {/* Hover Tag */}
                             <span className={`text-[10px] font-mono font-bold transition-all ${
-                              isHovered ? "text-[#163144] dark:text-[#60A5FA] scale-110" : "text-[#163144]/80 dark:text-muted-foreground"
+                              isHovered ? "text-[#FACC15] dark:text-[#FACC15] scale-110" : "text-[#1e232b]/80 dark:text-muted-foreground"
                             }`}>
                               {s.lockSec}s
                             </span>
 
                             {/* Segmented Bar Track */}
-                            <div className="w-full max-w-9 h-28 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] p-1 flex flex-col justify-end gap-1 overflow-hidden transition-all group-hover/col:border-black/20 dark:group-hover/col:border-white/30">
+                            <div className="w-full max-w-9 h-28 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-1 flex flex-col justify-end gap-1 overflow-hidden transition-all group-hover/col:border-black/20 dark:group-hover/col:border-white/30">
                               {/* Evasion segment */}
                               <div
-                                className="w-full rounded bg-[#163144]/35 dark:bg-[#60A5FA]/35 transition-all duration-500"
+                                className="w-full rounded bg-[#1e232b]/35 dark:bg-[#FACC15]/35 transition-all duration-500"
                                 style={{ height: `${heightPct * 0.4}%` }}
                               />
                               {/* Lock acquisition segment */}
                               <div
-                                className="w-full rounded bg-[#163144] dark:bg-[#60A5FA] transition-all duration-500 [filter:drop-shadow(0_1px_3px_rgba(22,49,68,0.3))]"
+                                className="w-full rounded bg-[#1e232b] dark:bg-[#FACC15] transition-all duration-500 [filter:drop-shadow(0_1px_3px_rgba(30,35,43,0.3))]"
                                 style={{ height: `${heightPct * 0.6}%` }}
                               />
                             </div>
 
                             {/* Label */}
-                            <span className="text-[10px] font-mono font-bold text-[#163144]/80 dark:text-muted-foreground">
+                            <span className="text-[10px] font-mono font-bold text-[#1e232b]/80 dark:text-muted-foreground">
                               {s.id}
                             </span>
                           </div>
@@ -1756,9 +1710,9 @@ export function SectionCards() {
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
+                    <div className="flex items-center justify-between pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
                       <span>Simulated Hits: <strong className="font-mono text-emerald-700 dark:text-emerald-400">7 Kills</strong></span>
-                      <span>Apex Lock: <strong className="font-mono text-[#163144] dark:text-foreground">1.4s</strong></span>
+                      <span>Apex Lock: <strong className="font-mono text-[#1e232b] dark:text-foreground">1.4s</strong></span>
                     </div>
 
                     {/* Sheen */}
@@ -1798,28 +1752,28 @@ export function SectionCards() {
 
                 return (
                   <div
-                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-t from-white/20 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out @xl/main:col-span-2 ${
+                    className={`group/bento-card relative overflow-hidden flex flex-col p-5 sm:p-6 min-h-[380px] rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-gradient-to-t from-white/35 to-transparent dark:from-background/70 dark:to-transparent backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] hover:-translate-y-1 hover:border-black/15 dark:hover:border-white/20 hover:from-white/30 dark:hover:from-background/85 shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_8px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.95),inset_1px_0_0.5px_0_rgba(255,255,255,0.4),inset_0_-1.5px_1px_0_rgba(0,0,0,0.06),0_20px_35px_-8px_rgba(0,0,0,0.12),0_10px_15px_-4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.25),inset_1px_0_0.5px_0_rgba(255,255,255,0.1),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_8px_24px_-4px_rgba(0,0,0,0.4)] dark:hover:shadow-[inset_0_1.5px_0.5px_0_rgba(255,255,255,0.35),inset_1px_0_0.5px_0_rgba(255,255,255,0.15),inset_0_-1.5px_1px_0_rgba(0,0,0,0.35),0_24px_45px_-8px_rgba(0,0,0,0.65),0_12px_20px_-4px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out @xl/main:col-span-2 ${
                       projectsInView ? "animate-[dashboardBlurFadeUp_950ms_cubic-bezier(0.16,1,0.3,1)_both] [animation-delay:720ms]" : "opacity-0"
                     }`}
                   >
                     {/* Header */}
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <div className="flex items-center gap-2.5">
-                        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                           <Award className="size-4.5" />
                         </div>
                         <div>
-                          <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#163144] dark:text-foreground">
+                          <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                             Milestone Project Progression
                           </h3>
-                          <p className="text-xs text-[#163144]/80 dark:text-muted-foreground">
+                          <p className="text-xs text-[#1e232b]/80 dark:text-muted-foreground">
                             Historical Project Performance vs 90% Qualification Minimum
                           </p>
                         </div>
                       </div>
 
                       <div className="hidden sm:flex items-center gap-2">
-                        <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#163144]/10 dark:bg-[#60A5FA]/15 text-[#163144] dark:text-[#60A5FA] border border-[#163144]/20 dark:border-[#60A5FA]/25">
+                        <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#1e232b]/10 dark:bg-[#FACC15]/15 text-[#FACC15] dark:text-[#FACC15] border border-[#1e232b]/20 dark:border-[#FACC15]/25">
                           COHORT MEAN: 84.6%
                         </span>
                       </div>
@@ -1829,7 +1783,7 @@ export function SectionCards() {
                     <div className="relative flex-1 min-h-[220px] w-full flex items-center justify-center my-1">
                       {/* Active Hover Tooltip */}
                       {activeBar && (
-                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-2.5 px-3 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg border border-border/60 text-xs font-mono font-bold text-[#163144] dark:text-[#60A5FA]">
+                        <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-2.5 px-3 py-1 rounded-md bg-background/95 dark:bg-[#0C0E12]/95 backdrop-blur-md shadow-lg border border-border/60 text-xs font-mono font-bold text-[#FACC15] dark:text-[#FACC15]">
                           <span>{activeBar.code}</span>
                           <span>•</span>
                           <span className="font-sans font-semibold text-foreground">{activeBar.title}</span>
@@ -1872,10 +1826,10 @@ export function SectionCards() {
                                 rx="3"
                                 className={`transition-all duration-200 ${
                                   isHovered
-                                    ? "fill-[#163144] dark:fill-[#60A5FA] opacity-100"
+                                    ? "fill-[#FACC15] dark:fill-[#FACC15] opacity-100"
                                     : isPassed
-                                    ? "fill-[#163144] dark:fill-[#60A5FA] opacity-75 group-hover/bento-card:opacity-85"
-                                    : "fill-[#163144]/40 dark:fill-[#60A5FA]/40 opacity-70"
+                                    ? "fill-[#FACC15] dark:fill-[#FACC15] opacity-75 group-hover/bento-card:opacity-85"
+                                    : "fill-[#1e232b]/40 dark:fill-[#FACC15]/40 opacity-70"
                                 }`}
                               />
                               <text
@@ -1883,7 +1837,7 @@ export function SectionCards() {
                                 y="176"
                                 textAnchor="middle"
                                 className={`text-[9px] font-mono font-medium transition-colors ${
-                                  isHovered ? "fill-[#163144] dark:fill-[#60A5FA] font-bold" : "fill-[#163144]/80 dark:fill-muted-foreground"
+                                  isHovered ? "fill-[#FACC15] dark:fill-[#FACC15] font-bold" : "fill-[#1e232b]/80 dark:fill-muted-foreground"
                                 }`}
                               >
                                 {bar.code.split("-")[0]}
@@ -1899,15 +1853,15 @@ export function SectionCards() {
                           stroke="currentColor"
                           strokeWidth="2"
                           strokeLinecap="round"
-                          className="text-[#163144] dark:text-[#60A5FA] [filter:drop-shadow(0_1px_3px_rgba(22,49,68,0.3))] dark:[filter:drop-shadow(0_0_6px_rgba(96,165,250,0.6))]"
+                          className="text-[#FACC15] dark:text-[#FACC15] [filter:drop-shadow(0_1px_3px_rgba(30,35,43,0.3))] dark:[filter:drop-shadow(0_0_6px_rgba(250,204,21,0.6))]"
                         />
                       </svg>
                     </div>
 
                     {/* Footer */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#163144] dark:text-muted-foreground">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-black/[0.08] dark:border-white/[0.06] text-xs font-medium text-[#1e232b] dark:text-muted-foreground">
                       <div className="flex items-center gap-3">
-                        <span>Modules Cleared: <strong className="font-mono text-[#163144] dark:text-foreground">{activeSubject.passedProjects}/{activeSubject.totalProjects}</strong></span>
+                        <span>Modules Cleared: <strong className="font-mono text-[#1e232b] dark:text-foreground">{activeSubject.passedProjects}/{activeSubject.totalProjects}</strong></span>
                         <span>•</span>
                         <span>Average Trend: <strong className="font-mono text-emerald-700 dark:text-emerald-400">+{((activeSubject.score - 78) * 0.4).toFixed(1)}%</strong></span>
                       </div>
@@ -1981,17 +1935,17 @@ export function SectionCards() {
                   <div className="flex items-center justify-between gap-4">
                     {/* Left: Icon, Title & Counter */}
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#163144] dark:text-[#60A5FA]">
+                      <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] text-[#FACC15] dark:text-[#FACC15]">
                         {expandedCardId === "total" && <ShieldCheck className="size-6" />}
                         {expandedCardId === "ended" && <Award className="size-6" />}
-                        {expandedCardId === "running" && <Activity className="size-6 text-blue-600 dark:text-[#60A5FA] animate-pulse" />}
+                        {expandedCardId === "running" && <Activity className="size-6 text-amber-500 dark:text-[#FACC15] animate-pulse" />}
                         {expandedCardId === "pending" && <Clock className="size-6" />}
                       </div>
                       <div className="flex items-baseline gap-2.5 truncate">
-                        <h2 id="expanded-card-title" className="text-xl sm:text-2xl font-bold tracking-tight text-[#163144] dark:text-foreground">
+                        <h2 id="expanded-card-title" className="text-xl sm:text-2xl font-bold tracking-tight text-[#1e232b] dark:text-foreground">
                           {cardData?.title}
                         </h2>
-                        <span className="font-mono text-2xl sm:text-3xl font-black tabular-nums text-[#163144] dark:text-[#60A5FA]">
+                        <span className="font-mono text-2xl sm:text-3xl font-black tabular-nums text-[#FACC15] dark:text-[#FACC15]">
                           {cardData?.count}
                         </span>
                       </div>
@@ -2000,7 +1954,7 @@ export function SectionCards() {
                     {/* Right: Close button morphed from arrow to X */}
                     <button
                       onClick={handleClose}
-                      className="relative flex size-9 shrink-0 items-center justify-center rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-[#163144] dark:text-foreground hover:bg-white dark:hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group/close"
+                      className="relative flex size-9 shrink-0 items-center justify-center rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 text-[#1e232b] dark:text-foreground hover:bg-white dark:hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm group/close"
                       title="Close expanded view (Esc)"
                       aria-label="Close"
                     >
@@ -2009,14 +1963,14 @@ export function SectionCards() {
                   </div>
 
                   {/* Operational Telemetry Subtitle */}
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-2 text-xs sm:text-sm text-[#163144]/80 dark:text-muted-foreground">
-                    <span className="font-bold text-[#163144] dark:text-foreground">{activeSubject.name}</span>
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-2 text-xs sm:text-sm text-[#1e232b]/80 dark:text-muted-foreground">
+                    <span className="font-bold text-[#1e232b] dark:text-foreground">{activeSubject.name}</span>
                     <span>•</span>
                     <span className="uppercase tracking-wider font-semibold text-xs">{activeSubject.branch}</span>
                     <span>•</span>
-                    <span>Last Eval: <span className="font-mono font-semibold text-[#163144] dark:text-foreground">{activeSubject.lastEval}</span></span>
+                    <span>Last Eval: <span className="font-mono font-semibold text-[#1e232b] dark:text-foreground">{activeSubject.lastEval}</span></span>
                     <span>•</span>
-                    <span className="hidden sm:inline font-medium">Milestone: <span className="text-[#163144] dark:text-foreground">{activeSubject.milestone}</span></span>
+                    <span className="hidden sm:inline font-medium">Milestone: <span className="text-[#1e232b] dark:text-foreground">{activeSubject.milestone}</span></span>
                   </div>
 
                   {/* Filter Chips / Tabs */}
@@ -2025,7 +1979,7 @@ export function SectionCards() {
                       onClick={() => setActiveModalTab("all")}
                       className={`px-3 py-1.5 rounded-full border transition-all ${
                         activeModalTab === "all"
-                          ? "bg-[#163144] text-white dark:bg-[#60A5FA] dark:text-zinc-950 border-transparent shadow-xs"
+                          ? "bg-[#1e232b] text-white dark:bg-[#FACC15] dark:text-zinc-950 border-transparent shadow-xs"
                           : "border-black/[0.08] dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.04] text-muted-foreground hover:text-foreground hover:bg-black/[0.05]"
                       }`}
                     >
@@ -2065,12 +2019,12 @@ export function SectionCards() {
                         onClick={() => setActiveModalTab("running")}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all ${
                           activeModalTab === "running"
-                            ? "bg-[#163144] text-white dark:bg-[#60A5FA] dark:text-zinc-950 border-transparent shadow-xs"
+                            ? "bg-[#1e232b] text-white dark:bg-[#FACC15] dark:text-zinc-950 border-transparent shadow-xs"
                             : "border-black/[0.08] dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.04] text-muted-foreground hover:text-foreground hover:bg-black/[0.05]"
                         }`}
                       >
                         <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_4px_rgba(52,211,153,0.6)]" />
-                        In Flight ({runningCount})
+                        Active Ops ({runningCount})
                       </button>
                     )}
 
@@ -2100,15 +2054,15 @@ export function SectionCards() {
                     visibleProjects.map((project) => (
                       <div
                         key={project.id}
-                        className="group/item relative overflow-hidden flex flex-col p-3.5 sm:p-4 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-200"
+                        className="group/item relative overflow-hidden flex flex-col p-3.5 sm:p-4 rounded-xl border border-white/20 dark:border-yellow-500/20 shadow-[0_4px_16px_rgba(0,0,0,0.08)] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-200"
                       >
                         {/* Row 1: Code, Title, Category and Status Pill */}
                         <div className="flex flex-wrap items-center justify-between gap-2.5">
                           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-                            <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-black/[0.05] dark:bg-white/10 text-[#163144] dark:text-foreground">
+                            <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-black/[0.05] dark:bg-white/10 text-[#1e232b] dark:text-foreground">
                               {project.code}
                             </span>
-                            <h4 className="text-sm sm:text-base font-bold text-[#163144] dark:text-foreground">
+                            <h4 className="text-sm sm:text-base font-bold text-[#1e232b] dark:text-foreground">
                               {project.title}
                             </h4>
                             <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-muted-foreground">
@@ -2133,7 +2087,7 @@ export function SectionCards() {
                             {project.status === "running" && (
                               <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-800 dark:text-emerald-400 border border-emerald-500/25">
                                 <span className="size-1.5 rounded-full bg-emerald-400 animate-ping shadow-[0_0_4px_rgba(52,211,153,0.6)]" />
-                                IN FLIGHT
+                                ACTIVE OP
                               </span>
                             )}
                             {project.status === "pending" && (
@@ -2145,7 +2099,7 @@ export function SectionCards() {
 
                             {/* Score (if graded) */}
                             {typeof project.score === "number" && (
-                              <span className="font-mono text-base font-black tabular-nums text-[#163144] dark:text-[#60A5FA] min-w-10 text-right">
+                              <span className="font-mono text-base font-black tabular-nums text-[#FACC15] dark:text-[#FACC15] min-w-10 text-right">
                                 {project.score}%
                               </span>
                             )}
@@ -2153,18 +2107,18 @@ export function SectionCards() {
                         </div>
 
                         {/* Row 2: Dates, Instructor, Duration */}
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-xs text-[#163144]/75 dark:text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-xs text-[#1e232b]/75 dark:text-muted-foreground">
                           <span className="inline-flex items-center gap-1">
                             <Calendar className="size-3 opacity-60" />
-                            <span>Started: <strong className="font-medium text-[#163144] dark:text-foreground">{project.dateStarted}</strong></span>
+                            <span>Started: <strong className="font-medium text-[#1e232b] dark:text-foreground">{project.dateStarted}</strong></span>
                             {project.dateCompleted ? (
-                              <span> • Completed: <strong className="font-medium text-[#163144] dark:text-foreground">{project.dateCompleted}</strong></span>
+                              <span> • Completed: <strong className="font-medium text-[#1e232b] dark:text-foreground">{project.dateCompleted}</strong></span>
                             ) : (
                               <span> • In Progress</span>
                             )}
                           </span>
                           <span>•</span>
-                          <span>Instructor: <strong className="font-medium text-[#163144] dark:text-foreground">{project.instructor}</strong></span>
+                          <span>Instructor: <strong className="font-medium text-[#1e232b] dark:text-foreground">{project.instructor}</strong></span>
                           <span>•</span>
                           <span>{project.durationHours} hrs logged</span>
                         </div>
@@ -2174,11 +2128,11 @@ export function SectionCards() {
                           <div className="mt-2.5 flex items-center gap-2">
                             <div className="h-1.5 flex-1 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
                               <div
-                                className="h-full rounded-full bg-[#163144] dark:bg-[#60A5FA] transition-all duration-500"
+                                className="h-full rounded-full bg-[#FACC15] dark:bg-[#FACC15] transition-all duration-500"
                                 style={{ width: `${project.progress}%` }}
                               />
                             </div>
-                            <span className="font-mono text-[11px] font-bold tabular-nums text-[#163144] dark:text-[#60A5FA]">
+                            <span className="font-mono text-[11px] font-bold tabular-nums text-[#FACC15] dark:text-[#FACC15]">
                               {project.progress}%
                             </span>
                           </div>
@@ -2186,7 +2140,7 @@ export function SectionCards() {
 
                         {/* Remarks Callout */}
                         {project.notes && (
-                          <p className="mt-2 text-xs italic text-[#163144]/80 dark:text-muted-foreground/90 pl-2 border-l-2 border-[#163144]/30 dark:border-[#60A5FA]/30">
+                          <p className="mt-2 text-xs italic text-[#1e232b]/80 dark:text-muted-foreground/90 pl-2 border-l-2 border-[#1e232b]/30 dark:border-[#FACC15]/30">
                             &ldquo;{project.notes}&rdquo;
                           </p>
                         )}
@@ -2197,15 +2151,15 @@ export function SectionCards() {
 
                 {/* Footer Bar */}
                 <div className="shrink-0 px-5 sm:px-6 py-3.5 border-t border-black/[0.08] dark:border-white/[0.08] bg-black/[0.015] dark:bg-white/[0.015] flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[#163144]/80 dark:text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[#1e232b]/80 dark:text-muted-foreground">
                     <span>
-                      Pass Rate: <strong className="font-mono font-bold text-[#163144] dark:text-foreground">
+                      Pass Rate: <strong className="font-mono font-bold text-[#1e232b] dark:text-foreground">
                         {baseProjects.length > 0 ? Math.round((passedCount / baseProjects.length) * 100) : 0}%
                       </strong>
                     </span>
                     <span>•</span>
                     <span>
-                      Total Hours: <strong className="font-mono font-bold text-[#163144] dark:text-foreground">{totalHours} hrs</strong>
+                      Total Hours: <strong className="font-mono font-bold text-[#1e232b] dark:text-foreground">{totalHours} hrs</strong>
                     </span>
                   </div>
 
@@ -2215,7 +2169,7 @@ export function SectionCards() {
                     </span>
                     <button
                       onClick={handleClose}
-                      className="text-xs font-semibold px-3.5 py-1.5 rounded-lg border border-black/15 dark:border-white/15 hover:bg-black/5 dark:hover:bg-white/10 text-[#163144] dark:text-foreground transition-colors"
+                      className="text-xs font-semibold px-3.5 py-1.5 rounded-lg border border-black/15 dark:border-white/15 hover:bg-black/5 dark:hover:bg-white/10 text-[#1e232b] dark:text-foreground transition-colors"
                     >
                       Done
                     </button>
